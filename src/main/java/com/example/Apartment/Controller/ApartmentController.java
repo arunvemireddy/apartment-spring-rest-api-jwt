@@ -31,7 +31,9 @@ import com.example.Apartment.DTO.OwnerDetailsDTO;
 import com.example.Apartment.DTO.UserRequest;
 import com.example.Apartment.DTO.UserResponse;
 import com.example.Apartment.Dao.ApartmentDao;
+import com.example.Apartment.Dao.ApartmentDetailsDao;
 import com.example.Apartment.Entity.Apartment;
+import com.example.Apartment.Entity.ApartmentDetails;
 import com.example.Apartment.Entity.OwnerDetails;
 import com.example.Apartment.Entity.UserLogin;
 import com.example.Apartment.Service.ApartmentService;
@@ -41,12 +43,9 @@ import com.example.common.ResponseStatus;
 
 
 @RestController
-@CrossOrigin(origins="http://localhost:4200")
+@CrossOrigin(origins ="http://localhost:4200")
 @RequestMapping(path="/api")
 public class ApartmentController {
-	
-
-	
 	@Autowired
     private ApartmentService apartmentService;
 	
@@ -54,11 +53,43 @@ public class ApartmentController {
 	private ApartmentDao dao;
 	
 	@Autowired
+	private ApartmentDetailsDao apartmentDetailsDao;
+	
+	@Autowired
 	private JwtUtil util;
 	
 	@Autowired
 	private AuthenticationManager authenticationManager;
 	
+	// validate user and generate token
+		@PostMapping("/login")
+		public ResponseEntity<UserResponse> login(@RequestBody UserRequest userRequest) {
+			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userRequest.getUserName(),userRequest.getPassword()));
+			String token=util.generatetoken(userRequest.getUserName());
+			return ResponseEntity.ok(new UserResponse(token,"Success"));
+		}
+		
+	//fetch Apartment Details
+		@GetMapping(path="/getApartmentDetails")
+		public ResponseEntity<?> getApartmentDetails(){
+			ResponseEntity<?> response= null;
+			 HttpHeaders responseHeaders = new HttpHeaders();
+			 List<ApartmentDetails> apartmentDetails = new ArrayList<ApartmentDetails>();
+			 apartmentDetails.addAll(apartmentDetailsDao.getApartmentDetails());
+			 response = new ResponseEntity<>(apartmentDetails,HttpStatus.OK);
+			 return response;
+		}
+		
+	// show owner details	
+		@GetMapping(path="/getOwnerDetais")
+		public ResponseEntity<?> getownerDetails(){
+			ResponseEntity<?> response= null;
+			 HttpHeaders responseHeaders = new HttpHeaders();
+			 List<OwnerDetails> details = new ArrayList<OwnerDetails>();
+			 details.addAll(dao.fetchOwnerDetails());
+			 response = new ResponseEntity<>(details,HttpStatus.OK);
+			 return response;
+		}
 	
 //	@PostMapping("save")
 //	public ResponseEntity<?> savedetails(@RequestBody ApartmentDTO apartmentDTO) {
@@ -104,16 +135,6 @@ public class ApartmentController {
 //		return response;
 //		
 //	}
-	
-	@GetMapping(path="/getOwnerDetais")
-	public ResponseEntity<?> getownerDetails(){
-		ResponseEntity<?> response= null;
-		 HttpHeaders responseHeaders = new HttpHeaders();
-		 List<OwnerDetails> details = new ArrayList<OwnerDetails>();
-		 details.addAll(dao.fetchOwnerDetails());
-		 response = new ResponseEntity<>(details,HttpStatus.OK);
-		 return response;
-	}
 	
 	@PostMapping("saveOwnerDetails")
 	public ResponseEntity<Object> saveOwnerDetails(@RequestBody OwnerDetailsDTO detailsDTO) {
@@ -180,18 +201,7 @@ public class ApartmentController {
 		return responseEntity;	
 	}
 	
-//	@RequestMapping(path="/login",method = RequestMethod.POST, produces = "application/json")
-//	public ResponseEntity<?> login(@RequestBody LoginDTO loginDTO)  {
-//		ResponseEntity<?> responseEntity;
-//		HttpHeaders responseHeaders = new HttpHeaders();
-//		MyUserDetailsService myUserDetailsService = new MyUserDetailsService();
-//		myUserDetailsService.loadUserByUsername("root");
-//		responseEntity= new ResponseEntity<Object>(new ResponsMessage("Updated"),responseHeaders,HttpStatus.OK);
-//		return responseEntity;	
-//	}
-	
 	// save user in database
-	
 	@PostMapping("/saveUser")
 	public ResponseEntity<String> saveUser(@RequestBody UserLogin userLogin) {
 		
@@ -199,16 +209,5 @@ public class ApartmentController {
 		String body="User '"+id+"'Saved";
 		return ResponseEntity.ok(body);
 	}
-	
-	// validate user and generate token
-	
-	@PostMapping("/login")
-	public ResponseEntity<UserResponse> login(@RequestBody UserRequest userRequest) {
-		
-		authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userRequest.getUserName(),userRequest.getPassword()));
-		String token=util.generatetoken(userRequest.getUserName());
-		return ResponseEntity.ok(new UserResponse(token,"Success"));
-	}
-	
 	
 }

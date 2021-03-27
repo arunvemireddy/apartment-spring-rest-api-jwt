@@ -1,9 +1,12 @@
 package com.example.security.filter;
+import javax.servlet.Filter;
 
 import java.io.IOException;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -15,11 +18,13 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.example.Apartment.Util.JwtUtil;
 
 @Component
-public class SecurityFilter extends OncePerRequestFilter {
+public class SecurityFilter extends OncePerRequestFilter implements Filter,WebMvcConfigurer {
 	
 	@Autowired
 	private JwtUtil util;
@@ -27,6 +32,11 @@ public class SecurityFilter extends OncePerRequestFilter {
 	@Autowired
 	private UserDetailsService userDetailsService;
 
+	@Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**");
+    }
+	
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
