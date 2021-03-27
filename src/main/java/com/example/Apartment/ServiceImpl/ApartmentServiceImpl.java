@@ -1,5 +1,6 @@
 package com.example.Apartment.ServiceImpl;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
@@ -16,10 +17,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.Apartment.DTO.ApartmentDTO;
+import com.example.Apartment.DTO.ApartmentDetailsDTO;
 import com.example.Apartment.DTO.OwnerDetailsDTO;
-import com.example.Apartment.Dao.ApartmentDao;
+import com.example.Apartment.Dao.OwnerDetailsDao;
 import com.example.Apartment.Dao.UserRepository;
 import com.example.Apartment.Entity.Apartment;
+import com.example.Apartment.Entity.ApartmentDetails;
 import com.example.Apartment.Entity.OwnerDetails;
 import com.example.Apartment.Entity.UserLogin;
 import com.example.Apartment.Service.ApartmentService;
@@ -28,52 +31,13 @@ import com.example.Apartment.Service.ApartmentService;
 public class ApartmentServiceImpl implements ApartmentService,UserDetailsService {
 
 	@Autowired
-	private ApartmentDao apartmentdao;
+	private OwnerDetailsDao apartmentdao;
 	
 	@Autowired
 	private UserRepository userRepository;
 	
 	@Autowired
 	private BCryptPasswordEncoder pwdencoder;
-
-//	@Override
-//	public void savedetails(ApartmentDTO apartmentDTO) {
-//		// TODO Auto-generated method stub
-//		Apartment apartment = new Apartment();
-//		apartment.setApartmentName(apartmentDTO.getApartmentName());
-//		apartment.setNoofFlats(apartmentDTO.getNoofFlats());
-//		//apartmentdao.save(apartment);
-//	}
-
-//	@Override
-//	public List<ApartmentDTO> getdetails() {
-//		// TODO Auto-generated method stub
-//		List<ApartmentDTO> ap = apartmentdao.fetchDetails();
-//		return ap;
-//	}
-	
-
-//	@Override
-//	public List<Apartment> getApdetails() {
-//		// TODO Auto-generated method stub
-//		List<Apartment> ap = apartmentdao.getApDetails();
-//		return ap;
-//	}
-
-//	@Override
-//	public void delete(int id) {
-//		// TODO Auto-generated method stub
-//		apartmentdao.delete(id);
-//	}
-
-	@Override
-	public List<String> getownerDetails() {
-		// TODO Auto-generated method stub
-		
-		OwnerDetailsDTO detailsDTO = new OwnerDetailsDTO();
-		List<String> details = apartmentdao.getOwnerDetails();
-		return details;
-	}
 
 	@Override
 	public List<OwnerDetails> fetchownerDetails() {
@@ -110,17 +74,4 @@ public class ApartmentServiceImpl implements ApartmentService,UserDetailsService
 				.map((role->new SimpleGrantedAuthority(role)))
 				.collect(Collectors.toList()));
 	}
-	
-	
-
-//	@Override
-//	public List<ApartmentDTO> getdetails() {
-//		// TODO Auto-generated method stub
-//
-//		List<Apartment> apartmentDTO = apartmentdao.findAll();
-//		List<ApartmentDTO> ap = apartmentdao.fetchDetails();
-//		
-//	}
-	
-	
 }

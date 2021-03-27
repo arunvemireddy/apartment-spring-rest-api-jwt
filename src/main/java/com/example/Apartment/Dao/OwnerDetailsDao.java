@@ -17,7 +17,7 @@ import com.example.Apartment.Entity.Apartment;
 import com.example.Apartment.Entity.OwnerDetails;
 
 @Repository
-public interface ApartmentDao extends JpaRepository<OwnerDetails, Long> {
+public interface OwnerDetailsDao extends JpaRepository<OwnerDetails, Long> {
 
 	@Query(value = "SELECT apartment_name,noof_flats FROM apartment", nativeQuery = true)
 	List<ApartmentDTO> fetchDetails();
