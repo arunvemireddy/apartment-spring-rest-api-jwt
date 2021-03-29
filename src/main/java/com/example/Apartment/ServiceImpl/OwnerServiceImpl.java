@@ -3,6 +3,8 @@ package com.example.Apartment.ServiceImpl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.bind.ValidationException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -33,28 +35,29 @@ public class OwnerServiceImpl implements OwnerService {
 	}
 	
 	@Override
-	public ResponsMessage saveOwnerDetails(OwnerDetailsDTO detailsDTO) {
-		String res;
+	public String saveOwnerDetails(OwnerDetailsDTO detailsDTO) throws ValidationException {
+		String res="";
 		int count=0;
 		 OwnerDetails ownerDetails = new OwnerDetails();
-		 List<Integer> flatList = ownerDetailsDao.fetFlatno();
+		 List<Integer> flatList = ownerDetailsDao.fetFlatno(detailsDTO.getFlatno());
+		 System.err.println(ownerDetailsDao.fetFlatno(detailsDTO.getFlatno()));
 		 for (Integer integer : flatList) {
-			if(integer==detailsDTO.getFlatno()) {
+			if(integer>0) {
 				count++;
 			}
 		}
-		 if(count==0) {
-		 ownerDetails.setFlatno(detailsDTO.getFlatno());
-		 ownerDetails.setName(detailsDTO.getName());
-		 ownerDetails.setContact(detailsDTO.getContact());
-		 ownerDetailsDao.save(ownerDetails);
-		 res="Owner Added";
-		 }else {
-	     res="FlatNo already had owner";
+		 if(count>0) {
+			 throw new ValidationException("FlatNo already has a owner");
+		 }else if(count==0) {
+			 ownerDetails.setFlatno(detailsDTO.getFlatno());
+			 ownerDetails.setName(detailsDTO.getName());
+			 ownerDetails.setContact(detailsDTO.getContact());
+			 ownerDetailsDao.save(ownerDetails);
+			 res="Owner Added";
+			 return res;
 		 }
-		 ResponsMessage responsMessage = new ResponsMessage(res);
-		 return responsMessage;
-		 }
+		return res;
+		}
 
 	@Override
 	public List<Integer> searchOwnerDetails(FlatsDTO flatDto) {

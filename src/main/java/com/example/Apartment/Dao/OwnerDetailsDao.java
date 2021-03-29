@@ -36,8 +36,8 @@ public interface OwnerDetailsDao extends JpaRepository<OwnerDetails, Long> {
 	@Query(value = "select * from owner_details", nativeQuery = true)
 	List<OwnerDetails> fetchOwnerDetails();
 	
-	@Query(value = "select flatno from owner_details", nativeQuery = true)
-	List<Integer> fetFlatno();
+	@Query(value = "select count(flatno) from owner_details  where flatno Like ?1%", nativeQuery = true)
+	List<Integer> fetFlatno(int flatno);
 	
 	@Query(value = "select flatno from owner_details where flatno Like ?1%", nativeQuery = true)
 	List<Integer> fetchFlatno(int flatno);

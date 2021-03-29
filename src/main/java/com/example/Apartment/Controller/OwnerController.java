@@ -1,5 +1,8 @@
 package com.example.Apartment.Controller;
 
+import javax.xml.bind.ValidationException;
+
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -14,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.Apartment.DTO.FlatsDTO;
 import com.example.Apartment.DTO.OwnerDetailsDTO;
 import com.example.Apartment.Service.OwnerService;
+import com.example.common.ResponsMessage;
+import com.example.common.ResponseStatus;
 
 @RestController
 @CrossOrigin(origins ="http://localhost:4200")
@@ -32,12 +37,22 @@ public class OwnerController {
 	}
 	
 	@PostMapping("saveOwnerDetails")
-	public ResponseEntity<Object> saveOwnerDetails(@RequestBody OwnerDetailsDTO detailsDTO) {
+	public ResponseEntity<Object> saveOwnerDetails(@RequestBody OwnerDetailsDTO detailsDTO)  {
 		 ResponseEntity<Object> response= null;
-		 HttpHeaders responseHeaders = new HttpHeaders();
-		 response=new ResponseEntity<Object>(ownerService.saveOwnerDetails(detailsDTO),responseHeaders, HttpStatus.OK);
+		 HttpHeaders responseHeaders = new HttpHeaders(); 
+		 String res;
+	
+			try {
+				res = ownerService.saveOwnerDetails(detailsDTO);
+				if(StringUtils.isNoneEmpty(res)) {
+					 ResponsMessage responsMessage = new ResponsMessage(res);
+					 response=new ResponseEntity<Object>(responsMessage,responseHeaders, HttpStatus.OK); 
+			}} catch (ValidationException e) {
+				 ResponsMessage responsMessage = new ResponsMessage(e.getMessage());
+				 response=new ResponseEntity<Object>(responsMessage,responseHeaders, HttpStatus.INTERNAL_SERVER_ERROR); 
+			}
 		 return response;
-		 }
+		 }  
 	
 	@PostMapping(path="/searchOwnerDetails")
 	public ResponseEntity<?> searchOwnerDetails(@RequestBody FlatsDTO flatDto) {
