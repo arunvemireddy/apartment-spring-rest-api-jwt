@@ -18,8 +18,6 @@ import com.example.Apartment.Entity.UserLogin;
 	 */
 @Service
 public interface ApartmentService {
-	
-	public List<OwnerDetails> fetchownerDetails();
 
 	Integer saveUser(UserLogin user);
 	

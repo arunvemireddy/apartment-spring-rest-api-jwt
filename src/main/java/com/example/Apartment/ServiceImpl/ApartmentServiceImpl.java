@@ -43,11 +43,6 @@ public class ApartmentServiceImpl implements ApartmentService,UserDetailsService
 	@Autowired
 	private BCryptPasswordEncoder pwdencoder;
 
-	@Override
-	public List<OwnerDetails> fetchownerDetails() {
-		///List<OwnerDetails> details = apartmentdao.fetchOwnerDetails();
-		return null;
-	}
 
 	@Override
 	public Integer saveUser(UserLogin user) {
