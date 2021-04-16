@@ -10,6 +10,11 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
+
+/**
+ * @author ARUN VEMIREDDY
+ *
+ */
 @Component
 public class JwtUtil {
 	
@@ -22,7 +27,7 @@ public class JwtUtil {
 		return Jwts.builder().setSubject(subject)
 				.setIssuer("arun")
 			    .setIssuedAt(new Date(System.currentTimeMillis()))
-			    .setExpiration(new Date(System.currentTimeMillis()+TimeUnit.MINUTES.toMillis(15)))
+			    .setExpiration(new Date(System.currentTimeMillis()+TimeUnit.MINUTES.toMillis(120)))
 			    .signWith(SignatureAlgorithm.HS512, secret.getBytes())
 			    .compact();
 	}

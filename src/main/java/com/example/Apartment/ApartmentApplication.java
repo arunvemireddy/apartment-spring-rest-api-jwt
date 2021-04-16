@@ -3,6 +3,11 @@ package com.example.Apartment;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+
+/**
+ * @author ARUN VEMIREDDY
+ *
+ */
 @SpringBootApplication(scanBasePackages={
 "com.example.security.services",
 "com.example.common",

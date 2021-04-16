@@ -1,5 +1,10 @@
 package com.example.common;
 
+
+/**
+ * @author ARUN VEMIREDDY
+ *
+ */
 public enum ResponseStatus {
 	
 	SUCCESS("SUCCESS"),ERROR("ERROR");

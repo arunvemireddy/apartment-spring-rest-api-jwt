@@ -1,6 +1,10 @@
 package com.example.common;
 
 
+/**
+ * @author ARUN VEMIREDDY
+ *
+ */
 public class ResponsMessage {
 	
 	private String message;

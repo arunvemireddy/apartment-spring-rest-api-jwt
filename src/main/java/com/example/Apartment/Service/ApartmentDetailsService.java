@@ -6,6 +6,10 @@ import org.springframework.stereotype.Service;
 
 import com.example.Apartment.Entity.ApartmentDetails;
 
+	/**
+	 * @author ARUN VEMIREDDY
+	 *
+	 */
 @Service
 public interface ApartmentDetailsService {
 

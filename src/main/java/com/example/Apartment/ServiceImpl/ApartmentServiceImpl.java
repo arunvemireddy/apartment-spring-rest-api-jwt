@@ -27,6 +27,10 @@ import com.example.Apartment.Entity.OwnerDetails;
 import com.example.Apartment.Entity.UserLogin;
 import com.example.Apartment.Service.ApartmentService;
 
+	/**
+	 * @author ARUN VEMIREDDY
+	 *
+	 */
 @Service
 public class ApartmentServiceImpl implements ApartmentService,UserDetailsService {
 
@@ -41,32 +45,25 @@ public class ApartmentServiceImpl implements ApartmentService,UserDetailsService
 
 	@Override
 	public List<OwnerDetails> fetchownerDetails() {
-		// TODO Auto-generated method stub
 		///List<OwnerDetails> details = apartmentdao.fetchOwnerDetails();
 		return null;
 	}
 
 	@Override
 	public Integer saveUser(UserLogin user) {
-		// TODO Auto-generated method stub
 		user.setPassword(pwdencoder.encode(user.getPassword()));
 		return userRepository.save(user).getId();
 	}
 
 	@Override
 	public Optional<UserLogin> findByUsername(String userName) {
-		// TODO Auto-generated method stub
 		return userRepository.findByUsername(userName);
 	}
 
 	@Override
-	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-		// TODO Auto-generated method stub
-		
+	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {		
 		Optional<UserLogin> user=findByUsername(userName);
-		
 		UserLogin userLogin = user.get();
-		 
 		if(user.isEmpty()) {
 			throw new UsernameNotFoundException("User not Found Exception");
 		}

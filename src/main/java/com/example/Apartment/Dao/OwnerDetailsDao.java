@@ -16,6 +16,11 @@ import com.example.Apartment.DTO.OwnerDetailsDTO;
 import com.example.Apartment.Entity.Apartment;
 import com.example.Apartment.Entity.OwnerDetails;
 
+
+	/**
+	 * @author ARUN VEMIREDDY
+	 *
+	 */
 @Repository
 public interface OwnerDetailsDao extends JpaRepository<OwnerDetails, Long> {
 

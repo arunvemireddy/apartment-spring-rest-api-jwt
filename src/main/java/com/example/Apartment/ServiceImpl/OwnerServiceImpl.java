@@ -20,6 +20,10 @@ import com.example.Apartment.Entity.OwnerDetails;
 import com.example.Apartment.Service.OwnerService;
 import com.example.common.ResponsMessage;
 
+	/**
+	 * @author ARUN VEMIREDDY
+	 *
+	 */
 @Service
 public class OwnerServiceImpl implements OwnerService {
 	

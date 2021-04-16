@@ -5,6 +5,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+	/**
+	 * @author ARUN VEMIREDDY
+	 *
+	 */
 @Entity
 public class Apartment {
 

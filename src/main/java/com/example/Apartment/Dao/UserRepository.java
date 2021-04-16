@@ -8,6 +8,11 @@ import org.springframework.stereotype.Repository;
 
 import com.example.Apartment.Entity.UserLogin;
 
+
+/**
+ * @author ARUN VEMIREDDY
+ *
+ */
 @Repository
 public interface UserRepository extends JpaRepository<UserLogin, Integer> {
 

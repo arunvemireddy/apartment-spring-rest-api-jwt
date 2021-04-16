@@ -18,6 +18,11 @@ import com.example.Apartment.Service.ApartmentService;
 import com.example.Apartment.Util.JwtUtil;
 
 
+
+	/**
+	 * @author ARUN VEMIREDDY
+	 *
+	 */
 @RestController
 @CrossOrigin(origins ="http://localhost:4200")
 @RequestMapping(path="/api")

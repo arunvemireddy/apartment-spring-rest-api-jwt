@@ -12,6 +12,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 
+	/**
+	 * @author ARUN VEMIREDDY
+	 *
+	 */
 @Entity
 public class UserLogin {
 	@Id

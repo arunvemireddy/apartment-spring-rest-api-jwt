@@ -20,6 +20,12 @@ import com.example.Apartment.Service.OwnerService;
 import com.example.common.ResponsMessage;
 import com.example.common.ResponseStatus;
 
+
+	/**
+	 * @author ARUN VEMIREDDY
+	 *
+	 */
+
 @RestController
 @CrossOrigin(origins ="http://localhost:4200")
 @RequestMapping(path="/api")

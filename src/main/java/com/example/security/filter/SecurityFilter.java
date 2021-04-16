@@ -23,6 +23,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.example.Apartment.Util.JwtUtil;
 
+
+	/**
+	 * @author ARUN VEMIREDDY
+	 *
+	 */
 @Component
 public class SecurityFilter extends OncePerRequestFilter implements Filter,WebMvcConfigurer {
 	
@@ -40,22 +45,15 @@ public class SecurityFilter extends OncePerRequestFilter implements Filter,WebMv
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
 		String token=request.getHeader("Authorization");
-		
-		if(token!=null) {
-			
+		if(token!=null) {	
 			String username=util.getUsername(token);
-			
 			if(username!=null&&SecurityContextHolder.getContext().getAuthentication()==null) {
 				UserDetails user=userDetailsService.loadUserByUsername(username);
 				boolean isValid=util.validateToken(token, user.getUsername());
-				
 				if(isValid) {
 					UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, user.getPassword(),user.getAuthorities());
 					authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-					
 					SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 				}
 			} 

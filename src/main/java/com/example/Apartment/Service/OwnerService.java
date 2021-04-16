@@ -11,6 +11,10 @@ import com.example.Apartment.DTO.OwnerDetailsDTO;
 import com.example.Apartment.Entity.OwnerDetails;
 import com.example.common.ResponsMessage;
 
+	/**
+	 * @author ARUN VEMIREDDY
+	 *
+	 */
 @Service
 public interface OwnerService {
 	

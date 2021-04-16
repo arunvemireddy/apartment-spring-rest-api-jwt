@@ -25,7 +25,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.example.security.filter.SecurityFilter;
 
-
+	/**
+	 * @author ARUN VEMIREDDY
+	 *
+	 */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter implements Filter,WebMvcConfigurer {
@@ -45,21 +48,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements Filt
 	@Override
 	@Bean
 	protected AuthenticationManager authenticationManager() throws Exception {
-		// TODO Auto-generated method stub
 		return super.authenticationManager();
 	}
 	
 	//Authentication
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		// TODO Auto-generated method stub
 		auth.userDetailsService(userDetailsService).passwordEncoder(pwdencoder);
 	}
 	
 	//Authorization
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		// TODO Auto-generated method stub
 		http
 		.csrf().disable()
 		.authorizeRequests().antMatchers("/api/saveUser","/api/login")

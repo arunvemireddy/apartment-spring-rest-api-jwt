@@ -10,6 +10,10 @@ import com.example.Apartment.Dao.ApartmentDetailsDao;
 import com.example.Apartment.Entity.ApartmentDetails;
 import com.example.Apartment.Service.ApartmentDetailsService;
 
+	/**
+	 * @author ARUN VEMIREDDY
+	 *
+	 */
 @Service
 public class ApartmentDetailsServiceImpl implements ApartmentDetailsService {
 	

@@ -12,6 +12,10 @@ import com.example.Apartment.Entity.Apartment;
 import com.example.Apartment.Entity.OwnerDetails;
 import com.example.Apartment.Entity.UserLogin;
 
+	/**
+	 * @author ARUN VEMIREDDY
+	 *
+	 */
 @Service
 public interface ApartmentService {
 	
