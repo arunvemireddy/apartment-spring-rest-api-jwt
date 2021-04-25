@@ -1,6 +1,8 @@
 package com.example.Apartment.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -48,12 +50,14 @@ public class LoginController {
 			return ResponseEntity.ok(new UserResponse(token,"Success"));
 		}
 		
-	// save user in database
+	// save user in database - registration
 	@PostMapping("/saveUser")
-	public ResponseEntity<String> saveUser(@RequestBody UserLogin userLogin) {
+	public ResponseEntity<UserResponse> saveUser(@RequestBody UserLogin userLogin) {
 		int id=apartmentService.saveUser(userLogin);
+		HttpHeaders responseHeaders = new HttpHeaders();
 		String body="User '"+id+"'Saved";
-		return ResponseEntity.ok(body);
+		//return new ResponseEntity<>(body,responseHeaders,HttpStatus.OK);
+		return ResponseEntity.ok(new UserResponse(body, "Registered"));
 	}
 	
 }
