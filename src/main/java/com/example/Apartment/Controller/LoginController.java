@@ -53,11 +53,16 @@ public class LoginController {
 	// save user in database - registration
 	@PostMapping("/saveUser")
 	public ResponseEntity<UserResponse> saveUser(@RequestBody UserLogin userLogin) {
+		String body,message;
 		int id=apartmentService.saveUser(userLogin);
 		HttpHeaders responseHeaders = new HttpHeaders();
-		String body="User '"+id+"'Saved";
-		//return new ResponseEntity<>(body,responseHeaders,HttpStatus.OK);
-		return ResponseEntity.ok(new UserResponse(body, "Registered"));
+		if(id==-1) {
+			body="User Already Exist";
+			message="Not Registered";
+		}else {
+			body="User '"+id+"'Registered";
+			message="Registered";
+		}
+		return ResponseEntity.ok(new UserResponse(body,message));
 	}
-	
 }

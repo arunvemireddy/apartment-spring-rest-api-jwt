@@ -45,9 +45,15 @@ public class ApartmentServiceImpl implements ApartmentService,UserDetailsService
 
 
 	@Override
-	public Integer saveUser(UserLogin user) {
-		user.setPassword(pwdencoder.encode(user.getPassword()));
-		return userRepository.save(user).getId();
+	public Integer saveUser(UserLogin user){
+		String un = user.getUsername();
+		Optional<UserLogin> username=findByUsername(un);
+		
+		if(username.isEmpty()) {
+			user.setPassword(pwdencoder.encode(user.getPassword()));
+			return userRepository.save(user).getId();
+		}
+		return -1;
 	}
 
 	@Override
