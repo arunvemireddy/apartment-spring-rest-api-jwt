@@ -6,12 +6,10 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -22,7 +20,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
 import com.example.security.filter.SecurityFilter;
 
 	/**
@@ -57,7 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements Filt
 		auth.userDetailsService(userDetailsService).passwordEncoder(pwdencoder);
 	}
 	
-	//Authorization
+	//Authorization-Http
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
@@ -79,7 +76,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements Filt
 	
 	@Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**").allowedOrigins("http://localhost:4200");;
+		registry.addMapping("/**").allowedOrigins("http://localhost:4200");
     }
 
     @Override

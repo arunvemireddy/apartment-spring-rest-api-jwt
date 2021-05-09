@@ -18,7 +18,6 @@ import com.example.Apartment.DTO.FlatsDTO;
 import com.example.Apartment.DTO.OwnerDetailsDTO;
 import com.example.Apartment.Service.OwnerService;
 import com.example.common.ResponsMessage;
-import com.example.common.ResponseStatus;
 
 
 	/**

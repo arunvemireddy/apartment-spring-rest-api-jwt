@@ -1,12 +1,9 @@
 package com.example.security.filter;
-import javax.servlet.Filter;
-
 import java.io.IOException;
 
+import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -20,7 +17,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
 import com.example.Apartment.Util.JwtUtil;
 
 
@@ -60,5 +56,4 @@ public class SecurityFilter extends OncePerRequestFilter implements Filter,WebMv
 		}
 		filterChain.doFilter(request, response);
 	}
-
 }

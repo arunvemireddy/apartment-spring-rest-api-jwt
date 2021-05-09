@@ -1,13 +1,9 @@
 package com.example.Apartment.ServiceImpl;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,14 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.example.Apartment.DTO.ApartmentDTO;
-import com.example.Apartment.DTO.ApartmentDetailsDTO;
-import com.example.Apartment.DTO.OwnerDetailsDTO;
-import com.example.Apartment.Dao.OwnerDetailsDao;
 import com.example.Apartment.Dao.UserRepository;
-import com.example.Apartment.Entity.Apartment;
-import com.example.Apartment.Entity.ApartmentDetails;
-import com.example.Apartment.Entity.OwnerDetails;
 import com.example.Apartment.Entity.UserLogin;
 import com.example.Apartment.Service.ApartmentService;
 
@@ -33,9 +22,6 @@ import com.example.Apartment.Service.ApartmentService;
 	 */
 @Service
 public class ApartmentServiceImpl implements ApartmentService,UserDetailsService {
-
-	@Autowired
-	private OwnerDetailsDao apartmentdao;
 	
 	@Autowired
 	private UserRepository userRepository;

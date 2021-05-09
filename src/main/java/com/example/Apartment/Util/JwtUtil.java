@@ -32,40 +32,33 @@ public class JwtUtil {
 			    .compact();
 	}
 	
-	//Read Claims
+	//get Claims body
 	public Claims getClaims(String token) {
-		
 		return Jwts.parser().setSigningKey(secret.getBytes())
 				.parseClaimsJws(token)
 				.getBody();
 	}
 	
 	
-	//Read Expiry Date
+	//get Expiry Date
 	public Date getExpDate(String token) {
-		
 		return getClaims(token).getExpiration();
 	}
 	
-	//Read subject/username
-	
+	//get UserName from token
      public String getUsername(String token) {
-		
 		return getClaims(token).getSubject();
 	}
      
    //validation Expiry Date
  	public boolean isTokenExp(String token) {
- 		
  		Date expDate = getExpDate(token);
  		return expDate.before(new Date(System.currentTimeMillis()));
  	}
  	
- 	// validate user name in token and database ,expDate
- 	
-public boolean validateToken(String token,String username) {
+ 	//validate user name in token and database ,expDate
+    public boolean validateToken(String token,String username) {
  		String tokenUsername=getUsername(token);
- 		
  		return (username.equals(tokenUsername)&&!isTokenExp(token));
  	}
      

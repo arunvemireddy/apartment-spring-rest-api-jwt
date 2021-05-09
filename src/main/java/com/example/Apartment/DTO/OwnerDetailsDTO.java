@@ -3,8 +3,11 @@ package com.example.Apartment.DTO;
 public class OwnerDetailsDTO {
 	
 	private int id;
+	
 	private String name;
+
 	private int flatno;
+	
 	private Long contact;
 	public int getId() {
 		return id;

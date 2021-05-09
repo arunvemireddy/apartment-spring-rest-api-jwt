@@ -17,7 +17,4 @@ public class ApartmentDTO {
 	public void setNoofFlats(int noofFlats) {
 		this.noofFlats = noofFlats;
 	}
-	
-	
-
 }

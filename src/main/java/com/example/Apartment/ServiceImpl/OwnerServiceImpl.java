@@ -6,12 +6,7 @@ import java.util.List;
 import javax.xml.bind.ValidationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import com.example.Apartment.DTO.FlatsDTO;
 import com.example.Apartment.DTO.OwnerDetailsDTO;
@@ -32,7 +27,6 @@ public class OwnerServiceImpl implements OwnerService {
 
 	@Override
 	public List<OwnerDetails> getownerDetails() {
-		OwnerDetailsDTO detailsDTO = new OwnerDetailsDTO();
 		 List<OwnerDetails> details = new ArrayList<OwnerDetails>();
 		 details.addAll(ownerDetailsDao.fetchOwnerDetails());
 		 return details;
