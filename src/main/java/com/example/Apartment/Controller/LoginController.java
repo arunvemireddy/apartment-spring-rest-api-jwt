@@ -24,6 +24,7 @@ import com.example.Apartment.Entity.UserLogin;
 import com.example.Apartment.Service.ApartmentService;
 import com.example.Apartment.Util.JwtUtil;
 import com.example.common.ResponsMessage;
+import com.fasterxml.jackson.core.JsonParseException;
 
 	/**
 	 * @author ARUN VEMIREDDY
@@ -90,4 +91,14 @@ public class LoginController {
 		ResponseEntity<?> response = new ResponseEntity<>(res,HttpStatus.BAD_GATEWAY);
 	    return response;
 	  }
+	
+	@ExceptionHandler(JsonParseException.class)
+	@ResponseStatus(HttpStatus.NOT_FOUND)
+	  public ResponseEntity<?> handleNoSuchElementFoundException(JsonParseException exception) {
+		ResponsMessage res = new ResponsMessage(exception.getMessage().toString()); 
+		ResponseEntity<?> response = new ResponseEntity<>(res,HttpStatus.BAD_GATEWAY);
+	    return response;
+	  }
+	
+	
 }
