@@ -6,6 +6,7 @@ import javax.validation.ConstraintViolationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -45,11 +46,12 @@ public class LoginController {
 	private AuthenticationManager authenticationManager;
 	
 	    //validate user and generate token
-		@PostMapping("/login")
+		@PostMapping(value = "/login" ,consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
 		public ResponseEntity<UserResponse> login(@RequestBody UserRequest userRequest) {
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userRequest.getUserName(),userRequest.getPassword()));
 			String token=util.generatetoken(userRequest.getUserName());
-			return ResponseEntity.ok(new UserResponse(token,"Success"));
+			String userName=userRequest.getUserName();
+			return ResponseEntity.ok(new UserResponse(token,userName));
 		}
 		
 		//wrong Password exception handling
@@ -69,7 +71,7 @@ public class LoginController {
 		  }
 		
 	// save user in database - registration
-	@PostMapping("/saveUser")
+	@PostMapping(value = "/saveUser" ,consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<UserResponse> saveUser(@RequestBody UserLogin userLogin) {
 		String body,message;
 		int id=apartmentService.saveUser(userLogin);

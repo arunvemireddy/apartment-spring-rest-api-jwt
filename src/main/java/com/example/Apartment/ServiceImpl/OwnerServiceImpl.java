@@ -6,6 +6,9 @@ import java.util.List;
 import javax.xml.bind.ValidationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.example.Apartment.DTO.FlatsDTO;
@@ -26,9 +29,10 @@ public class OwnerServiceImpl implements OwnerService {
 	private OwnerDetailsDao ownerDetailsDao;
 
 	@Override
-	public List<OwnerDetails> getownerDetails() {
+	public List<OwnerDetails> getownerDetails(int pageNo,int pageSize,String colName) {
 		 List<OwnerDetails> details = new ArrayList<OwnerDetails>();
-		 details.addAll(ownerDetailsDao.fetchOwnerDetails());
+		 Pageable pageable= PageRequest.of(pageNo,pageSize, Sort.by(colName));
+		 details.addAll(ownerDetailsDao.fetchOwnerDetails(pageable));
 		 return details;
 	}
 	

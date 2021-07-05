@@ -1,5 +1,6 @@
 package com.example.Apartment.Service;
 
+import java.awt.print.Pageable;
 import java.util.List;
 
 import javax.xml.bind.ValidationException;
@@ -18,7 +19,7 @@ import com.example.common.ResponsMessage;
 @Service
 public interface OwnerService {
 	
-	public List<OwnerDetails> getownerDetails();
+	public List<OwnerDetails> getownerDetails(int pageNo,int pageSize,String colName);
 	
 	public String saveOwnerDetails(OwnerDetailsDTO detailsDTO) throws ValidationException;
 	

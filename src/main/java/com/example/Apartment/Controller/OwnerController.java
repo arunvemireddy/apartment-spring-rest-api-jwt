@@ -2,25 +2,29 @@ package com.example.Apartment.Controller;
 
 import javax.xml.bind.ValidationException;
 
+import com.example.Apartment.DTO.OwnerNameDTO;
+import com.example.Apartment.Dao.OwnerDetailsDao;
+import com.example.Apartment.Entity.OwnerDetails;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.example.Apartment.DTO.FlatsDTO;
 import com.example.Apartment.DTO.OwnerDetailsDTO;
 import com.example.Apartment.Service.OwnerService;
 import com.example.common.ResponsMessage;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-	/**
+
+/**
 	 * @author ARUN VEMIREDDY
 	 *
 	 */
@@ -29,15 +33,24 @@ import com.example.common.ResponsMessage;
 @CrossOrigin(origins ="http://localhost:4200")
 @RequestMapping(path="/api")
 public class OwnerController {
+
+	Logger log= LogManager.getLogger(OwnerController.class);
+
+	@Autowired
+	private OwnerDetailsDao ownerDetailsDao;
 	
 	@Autowired
 	private OwnerService ownerService;
 	
 	@GetMapping(path="/getOwnerDetais")
-	public ResponseEntity<?> getownerDetails(){
+	public ResponseEntity<?> getownerDetails(@RequestParam(required = false,defaultValue = "0") int pageNo,
+											 @RequestParam(required = false,defaultValue = "1") int pageSize,
+											 @RequestParam(required = false,defaultValue = "id") String colName){
 		ResponseEntity<?> response= null;
 		 HttpHeaders responseHeaders = new HttpHeaders();
-		 response = new ResponseEntity<>(ownerService.getownerDetails(),responseHeaders,HttpStatus.OK);
+		 log.info("pageNo"+pageNo+"pageSize"+pageSize);
+		 Object[] object={ownerService.getownerDetails(pageNo,pageSize,colName),ownerDetailsDao.count()};
+		 response = new ResponseEntity<>(object,responseHeaders,HttpStatus.OK);
 		 return response;
 	}
 	
@@ -83,6 +96,12 @@ public class OwnerController {
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseEntity= new ResponseEntity<Object>(ownerService.updateOwnerDetails(ownerDetailsDTO),responseHeaders,HttpStatus.OK);
 		return responseEntity;	
+	}
+
+	@GetMapping("/getOwnerName")
+	public ResponseEntity<?> getOwnerName(){
+		List<OwnerNameDTO> ownerNameDTOS=ownerDetailsDao.getOwnerName();
+		return ResponseEntity.ok(ownerNameDTOS);
 	}
 
 }

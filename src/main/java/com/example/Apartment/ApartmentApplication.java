@@ -2,6 +2,7 @@ package com.example.Apartment;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 
 /**
@@ -19,6 +20,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 "com.example.Apartment.Service",
 "com.example.Apartment.ServiceImpl",
 "com.example.security.filter"})
+@EnableSwagger2
 public class ApartmentApplication {
 
 	public static void main(String[] args) {

@@ -1,9 +1,12 @@
 package com.example.Apartment.Dao;
 
+
 import java.util.List;
 
 import javax.transaction.Transactional;
 
+import com.example.Apartment.DTO.OwnerNameDTO;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -35,8 +38,8 @@ public interface OwnerDetailsDao extends JpaRepository<OwnerDetails, Long> {
 	@Query(value = "delete from apartment where ap_id=?1",nativeQuery = true)
 	void delete(int apId);
 	
-	@Query(value = "select * from owner_details", nativeQuery = true)
-	List<OwnerDetails> fetchOwnerDetails();
+	@Query("select m from OwnerDetails m")
+	List<OwnerDetails> fetchOwnerDetails(Pageable pageable);
 	
 	@Query(value = "select count(flatno) from owner_details  where flatno Like ?1%", nativeQuery = true)
 	List<Integer> fetFlatno(int flatno);
@@ -46,4 +49,7 @@ public interface OwnerDetailsDao extends JpaRepository<OwnerDetails, Long> {
 	
 	@Query(value = "select * from owner_details where flatno Like ?1%", nativeQuery = true)
 	List<OwnerDetails> getOwnerDetails(int flatno);
+
+	@Query("SELECT new com.example.Apartment.DTO.OwnerNameDTO(u.name)  FROM OwnerDetails u")
+	List<OwnerNameDTO> getOwnerName();
 }
