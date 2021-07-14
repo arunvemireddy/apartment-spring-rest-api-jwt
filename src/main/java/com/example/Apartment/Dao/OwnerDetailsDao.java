@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.example.Apartment.DTO.ApartmentDTO;
@@ -52,4 +53,7 @@ public interface OwnerDetailsDao extends JpaRepository<OwnerDetails, Long> {
 
 	@Query("SELECT new com.example.Apartment.DTO.OwnerNameDTO(u.name)  FROM OwnerDetails u")
 	List<OwnerNameDTO> getOwnerName();
+
+	@Query("select od from OwnerDetails od where od.name = :userName")
+	List<OwnerDetails> getOwnerDetailsByName(@Param("userName") String userName);
 }

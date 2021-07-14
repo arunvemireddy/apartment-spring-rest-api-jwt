@@ -59,7 +59,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements Filt
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 		.csrf().disable()
-		.authorizeRequests().antMatchers("/api/saveUser","/api/login","/v2/api-docs", "/configuration/**", "/swagger*/**", "/webjars/**")
+		.authorizeRequests().antMatchers("/api/saveUser","/api/login","/v2/api-docs", "/configuration/**", "/swagger*/**", "/webjars/**","/h2-console/**")
 		.permitAll()
 		.anyRequest().authenticated()
 		.and()
@@ -72,6 +72,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements Filt
 		.addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
 		.httpBasic();
 		 http.cors();
+		 http.headers().frameOptions().disable();
 	}
 	
 	@Override

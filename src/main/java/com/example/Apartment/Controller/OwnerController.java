@@ -4,6 +4,7 @@ import javax.xml.bind.ValidationException;
 
 import com.example.Apartment.DTO.OwnerNameDTO;
 import com.example.Apartment.Dao.OwnerDetailsDao;
+import com.example.Apartment.Dao.UserRepository;
 import com.example.Apartment.Entity.OwnerDetails;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
@@ -38,6 +39,9 @@ public class OwnerController {
 
 	@Autowired
 	private OwnerDetailsDao ownerDetailsDao;
+
+	@Autowired
+	private UserRepository userRepository;
 	
 	@Autowired
 	private OwnerService ownerService;
@@ -104,4 +108,8 @@ public class OwnerController {
 		return ResponseEntity.ok(ownerNameDTOS);
 	}
 
-}
+	@RequestMapping(path = "/finduserByName",method = RequestMethod.GET)
+	public ResponseEntity<?> finduserByName(@RequestParam String userName){
+		return ResponseEntity.ok(userRepository.finduserDetails(userName));
+	}
+}   
