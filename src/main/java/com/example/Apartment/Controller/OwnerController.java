@@ -3,12 +3,15 @@ package com.example.Apartment.Controller;
 import javax.xml.bind.ValidationException;
 
 import com.example.Apartment.DTO.OwnerNameDTO;
+import com.example.Apartment.DTO.UserLoginDTO;
 import com.example.Apartment.Dao.OwnerDetailsDao;
 import com.example.Apartment.Dao.UserRepository;
 import com.example.Apartment.Entity.OwnerDetails;
+import com.example.Apartment.Service.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -45,6 +48,9 @@ public class OwnerController {
 	
 	@Autowired
 	private OwnerService ownerService;
+
+	@Autowired
+	private UserService userService;
 	
 	@GetMapping(path="/getOwnerDetais")
 	public ResponseEntity<?> getownerDetails(@RequestParam(required = false,defaultValue = "0") int pageNo,
@@ -111,5 +117,10 @@ public class OwnerController {
 	@RequestMapping(path = "/finduserByName",method = RequestMethod.GET)
 	public ResponseEntity<?> finduserByName(@RequestParam String userName){
 		return ResponseEntity.ok(userRepository.finduserDetails(userName));
+	}
+
+	@RequestMapping(path = "/updateuserByName",method = RequestMethod.POST)
+	public ResponseEntity<?> updateuserByName(@RequestParam String userName,@RequestBody(required = false) UserLoginDTO userLoginDTO){
+		return ResponseEntity.ok(userService.updateUserDetails(userName,userLoginDTO));
 	}
 }   
