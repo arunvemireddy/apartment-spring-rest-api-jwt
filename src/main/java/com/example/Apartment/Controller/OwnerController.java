@@ -122,7 +122,7 @@ public class OwnerController {
 	}
 
 	@RequestMapping(path = "/searchflatno",method = RequestMethod.GET)
-	public ResponseEntity<List<OwnersProjections>> getOwnerByFlat(@RequestParam int flatno){
+	public ResponseEntity<List<Integer>> getOwnerByFlat(@RequestParam int flatno){
 		return ResponseEntity.ok(ownerDetailsDao.getOwnersByFlat(flatno));
 	}
 
