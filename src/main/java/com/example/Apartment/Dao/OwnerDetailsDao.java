@@ -5,7 +5,9 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import com.example.Apartment.DTO.OwnerListProjections;
 import com.example.Apartment.DTO.OwnerNameDTO;
+import com.example.Apartment.DTO.OwnersProjections;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -56,4 +58,10 @@ public interface OwnerDetailsDao extends JpaRepository<OwnerDetails, Long> {
 
 	@Query("select od from OwnerDetails od where od.name = :userName")
 	List<OwnerDetails> getOwnerDetailsByName(@Param("userName") String userName);
+
+	@Query(value = "select m.flatno from owner_details m where m.flatno like ?1%",nativeQuery = true)
+	List<OwnersProjections> getOwnersByFlat(int flatno);
+
+	@Query(value = "select m.name from owner_details m where m.flatno = ?1",nativeQuery = true)
+	List<OwnerListProjections> getOwnersListByFlat(int flatno);
 }

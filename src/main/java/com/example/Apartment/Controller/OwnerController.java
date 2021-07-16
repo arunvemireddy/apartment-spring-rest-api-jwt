@@ -2,8 +2,7 @@ package com.example.Apartment.Controller;
 
 import javax.xml.bind.ValidationException;
 
-import com.example.Apartment.DTO.OwnerNameDTO;
-import com.example.Apartment.DTO.UserLoginDTO;
+import com.example.Apartment.DTO.*;
 import com.example.Apartment.Dao.OwnerDetailsDao;
 import com.example.Apartment.Dao.UserRepository;
 import com.example.Apartment.Entity.OwnerDetails;
@@ -18,8 +17,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.example.Apartment.DTO.FlatsDTO;
-import com.example.Apartment.DTO.OwnerDetailsDTO;
 import com.example.Apartment.Service.OwnerService;
 import com.example.common.ResponsMessage;
 
@@ -122,5 +119,15 @@ public class OwnerController {
 	@RequestMapping(path = "/updateuserByName",method = RequestMethod.POST)
 	public ResponseEntity<?> updateuserByName(@RequestParam String userName,@RequestBody(required = false) UserLoginDTO userLoginDTO){
 		return ResponseEntity.ok(userService.updateUserDetails(userName,userLoginDTO));
+	}
+
+	@RequestMapping(path = "/searchflatno",method = RequestMethod.GET)
+	public ResponseEntity<List<OwnersProjections>> getOwnerByFlat(@RequestParam int flatno){
+		return ResponseEntity.ok(ownerDetailsDao.getOwnersByFlat(flatno));
+	}
+
+	@RequestMapping(path = "/changeflatno",method = RequestMethod.GET)
+	public ResponseEntity<List<OwnerListProjections>> getchangeflatno(@RequestParam int flatno){
+		return ResponseEntity.ok(ownerDetailsDao.getOwnersListByFlat(flatno));
 	}
 }   

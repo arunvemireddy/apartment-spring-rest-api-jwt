@@ -1,9 +1,6 @@
 package com.example.Apartment.Entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 
 /**
@@ -17,6 +14,7 @@ public class OwnerDetails {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String name;
+	@Column(unique = true)
 	private int flatno;
 	private Long contact;
 	public int getId() {
