@@ -127,7 +127,7 @@ public class OwnerController {
 	}
 
 	@RequestMapping(path = "/changeflatno",method = RequestMethod.GET)
-	public ResponseEntity<List<OwnerListProjections>> getchangeflatno(@RequestParam int flatno){
-		return ResponseEntity.ok(ownerDetailsDao.getOwnersListByFlat(flatno));
+	public ResponseEntity<?> getchangeflatno(@RequestParam int flatno){
+		return new ResponseEntity<>(ownerDetailsDao.getOwnersListByFlat(flatno),HttpStatus.OK);
 	}
 }   
