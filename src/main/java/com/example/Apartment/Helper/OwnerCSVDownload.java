@@ -34,7 +34,7 @@ public class OwnerCSVDownload {
             }
 
             csvPrinter.flush();
-            return new   (out.toByteArray());
+            return new ByteArrayInputStream(out.toByteArray());
         } catch (IOException e) {
             throw new RuntimeException("fail to import data to CSV file: " + e.getMessage());
         }

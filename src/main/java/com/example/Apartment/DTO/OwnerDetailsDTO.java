@@ -27,11 +27,12 @@ public class OwnerDetailsDTO {
 	public void setFlatno(int flatno) {
 		this.flatno = flatno;
 	}
+
 	public Long getContact() {
 		return contact;
 	}
+
 	public void setContact(Long contact) {
 		this.contact = contact;
 	}
-
 }
