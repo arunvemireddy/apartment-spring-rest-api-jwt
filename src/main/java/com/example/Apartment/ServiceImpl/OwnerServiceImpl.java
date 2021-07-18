@@ -1,10 +1,12 @@
 package com.example.Apartment.ServiceImpl;
 
+import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.ValidationException;
 
+import com.example.Apartment.Helper.OwnerCSVDownload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -85,5 +87,12 @@ public class OwnerServiceImpl implements OwnerService {
 		ownerDetailsDao.save(ownerDetails);
 		ResponsMessage responsMessage = new ResponsMessage("Owner Details Updated");
 		return responsMessage;	
+	}
+
+	@Override
+	public ByteArrayInputStream downloadOwnerFile() {
+		List<OwnerDetails> ownerDetails = ownerDetailsDao.findAll();
+		ByteArrayInputStream in = OwnerCSVDownload.tutorialsToCSV(ownerDetails);
+		return in;
 	}
 }

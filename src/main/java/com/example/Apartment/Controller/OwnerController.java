@@ -12,8 +12,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -129,5 +131,14 @@ public class OwnerController {
 	@RequestMapping(path = "/changeflatno",method = RequestMethod.GET)
 	public ResponseEntity<?> getchangeflatno(@RequestParam int flatno){
 		return new ResponseEntity<>(ownerDetailsDao.getOwnersListByFlat(flatno),HttpStatus.OK);
+	}
+
+	@GetMapping(path = "/downloadownerTable")
+	public ResponseEntity<?> downloadownerTable(){
+		String filename = "tutorials.csv";
+		InputStreamResource file = new InputStreamResource(ownerService.downloadOwnerFile());
+		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,"attachment; filename="+ filename)
+				.contentType(MediaType.parseMediaType("application/csv")).body(file);
+//		return  ResponseEntity.ok(ownerDetailsDao.findAll());
 	}
 }   

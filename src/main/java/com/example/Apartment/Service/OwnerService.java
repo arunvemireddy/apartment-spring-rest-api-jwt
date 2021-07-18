@@ -1,6 +1,7 @@
 package com.example.Apartment.Service;
 
 import java.awt.print.Pageable;
+import java.io.ByteArrayInputStream;
 import java.util.List;
 
 import javax.xml.bind.ValidationException;
@@ -28,5 +29,7 @@ public interface OwnerService {
 	public  List<OwnerDetails> selectOwnerDetails(FlatsDTO flatDto);
 	
 	public ResponsMessage updateOwnerDetails(OwnerDetailsDTO ownerDetailsDTO);
+
+	public ByteArrayInputStream downloadOwnerFile();
 
 }
