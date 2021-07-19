@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -55,12 +56,7 @@ public class OwnerController {
 	public ResponseEntity<?> getownerDetails(@RequestParam(required = false,defaultValue = "0") int pageNo,
 											 @RequestParam(required = false,defaultValue = "1") int pageSize,
 											 @RequestParam(required = false,defaultValue = "id") String colName){
-		ResponseEntity<?> response= null;
-		 HttpHeaders responseHeaders = new HttpHeaders();
-		 log.info("pageNo"+pageNo+"pageSize"+pageSize);
-		 Object[] object={ownerService.getownerDetails(pageNo,pageSize,colName),ownerDetailsDao.count()};
-		 response = new ResponseEntity<>(object,responseHeaders,HttpStatus.OK);
-		 return response;
+		 return new ResponseEntity<>(ownerService.getownerDetails(pageNo,pageSize,colName),HttpStatus.OK);
 	}
 	
 	@PostMapping("saveOwnerDetails")

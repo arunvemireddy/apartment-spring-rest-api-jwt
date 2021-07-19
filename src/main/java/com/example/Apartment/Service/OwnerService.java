@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.xml.bind.ValidationException;
 
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import com.example.Apartment.DTO.FlatsDTO;
@@ -20,7 +21,7 @@ import com.example.common.ResponsMessage;
 @Service
 public interface OwnerService {
 	
-	public List<OwnerDetails> getownerDetails(int pageNo,int pageSize,String colName);
+	public Page<OwnerDetails> getownerDetails(int pageNo, int pageSize, String colName);
 	
 	public String saveOwnerDetails(OwnerDetailsDTO detailsDTO) throws ValidationException;
 	

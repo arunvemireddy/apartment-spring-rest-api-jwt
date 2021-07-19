@@ -8,6 +8,7 @@ import javax.xml.bind.ValidationException;
 
 import com.example.Apartment.Helper.OwnerCSVDownload;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -31,11 +32,9 @@ public class OwnerServiceImpl implements OwnerService {
 	private OwnerDetailsDao ownerDetailsDao;
 
 	@Override
-	public List<OwnerDetails> getownerDetails(int pageNo,int pageSize,String colName) {
-		 List<OwnerDetails> details = new ArrayList<OwnerDetails>();
+	public Page<OwnerDetails> getownerDetails(int pageNo, int pageSize, String colName) {
 		 Pageable pageable= PageRequest.of(pageNo,pageSize, Sort.by(colName));
-		 details.addAll(ownerDetailsDao.fetchOwnerDetails(pageable));
-		 return details;
+		 return ownerDetailsDao.findAll(pageable);
 	}
 	
 	@Override
