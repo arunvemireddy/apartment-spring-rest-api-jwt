@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -43,6 +44,9 @@ public class UserLogin {
 	@CollectionTable(name="roles",joinColumns = @JoinColumn(name="id"))
 	@Column(name="role")
 	private Set<String> roles;
+	@Email(message = "Email should be valid")
+	@NotNull(message = "cannot be not null")
+	private String email;
 	public int getId() {
 		return id;
 	}

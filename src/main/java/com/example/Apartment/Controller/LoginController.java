@@ -1,9 +1,16 @@
 package com.example.Apartment.Controller;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
+import javax.mail.MessagingException;
 import javax.validation.ConstraintViolationException;
 
+import com.example.Apartment.Service.UserService;
+import com.example.Apartment.ServiceImpl.EmailService;
+import com.google.common.cache.LoadingCache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -12,13 +19,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.example.Apartment.DTO.UserRequest;
 import com.example.Apartment.DTO.UserResponse;
 import com.example.Apartment.Entity.UserLogin;
@@ -26,8 +27,9 @@ import com.example.Apartment.Service.ApartmentService;
 import com.example.Apartment.Util.JwtUtil;
 import com.example.common.ResponsMessage;
 import com.fasterxml.jackson.core.JsonParseException;
+import org.springframework.web.util.NestedServletException;
 
-	/**
+/**
 	 * @author ARUN VEMIREDDY
 	 *
 	 */
@@ -35,7 +37,9 @@ import com.fasterxml.jackson.core.JsonParseException;
 @CrossOrigin(origins ="http://localhost:4200")
 @RequestMapping(path="/api")
 public class LoginController {
-	
+
+	public static final String APARTMENT_OTP_FOR_CHANGE_PASSWORD = "Apartment-OTP for change Password";
+
 	@Autowired
     private ApartmentService apartmentService;
 	
@@ -44,7 +48,14 @@ public class LoginController {
 	
 	@Autowired
 	private AuthenticationManager authenticationManager;
-	
+
+	@Autowired
+	private EmailService emailService;
+
+	@Autowired
+	private UserService userService;
+
+
 	    //validate user and generate token
 		@PostMapping(value = "/login" ,consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
 		public ResponseEntity<UserResponse> login(@RequestBody UserRequest userRequest) {
@@ -101,6 +112,21 @@ public class LoginController {
 		ResponseEntity<?> response = new ResponseEntity<>(res,HttpStatus.BAD_GATEWAY);
 	    return response;
 	  }
-	
-	
+
+		@GetMapping("/generateOtp")
+		public ResponseEntity<?> generateOTP(@RequestParam(required = false) String username) throws MessagingException {
+			String email=null;
+			String message=null;
+			Map<String,String> map = new HashMap<>();
+				map = userService.generateOTP(username);
+				email=map.get("email");
+				message = map.get("otp");
+				emailService.sendOtpMessage(email, APARTMENT_OTP_FOR_CHANGE_PASSWORD, message);
+				return ResponseEntity.ok(map);
+		}
+
+		@GetMapping(path = "/validateOtp")
+		public Boolean validateOtp(@RequestParam() String username,@RequestParam() String otp){
+			 return userService.validateOtp(username,otp);
+		}
 }
