@@ -50,16 +50,14 @@ public class UserServiceImpl implements UserService {
     }
 
     public Map<String,String> generateOTP(String key){
-        Optional<UserLogin> userLogin=userRepository.findByUsername(key);
-        UserLogin userLogin1=userLogin.get();
         int otp=0;
         String email=null;
-        if(!userLogin.isEmpty()){
-            email=userLogin1.getEmail();
-            Random random = new Random();
-            otp = 100000 + random.nextInt(900000);
-        }
         Map<String,String> map = new HashMap<>();
+        Optional<UserLogin> userLogin=userRepository.findByUsername(key);
+        UserLogin userLogin1=userLogin.get();
+        email=userLogin1.getEmail();
+        Random random = new Random();
+        otp = 100000 + random.nextInt(900000);
         map.put("otp",String.valueOf(otp));
         map.put("email",email);
         otpCache.put(key,otp);

@@ -3,11 +3,13 @@ package com.example.Apartment.Controller;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.mail.MessagingException;
 import javax.validation.ConstraintViolationException;
 
+import com.example.Apartment.Dao.UserRepository;
 import com.example.Apartment.Service.UserService;
 import com.example.Apartment.ServiceImpl.EmailService;
 import com.google.common.cache.LoadingCache;
@@ -19,6 +21,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import com.example.Apartment.DTO.UserRequest;
 import com.example.Apartment.DTO.UserResponse;
@@ -54,6 +57,12 @@ public class LoginController {
 
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+	private UserRepository userRepository;
+
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
 	    //validate user and generate token
@@ -114,19 +123,43 @@ public class LoginController {
 	  }
 
 		@GetMapping("/generateOtp")
-		public ResponseEntity<?> generateOTP(@RequestParam(required = false) String username) throws MessagingException {
+		public ResponseEntity<?> generateOTP(@RequestParam(required = false) String username) throws MessagingException{
 			String email=null;
-			String message=null;
+			String otp=null;
 			Map<String,String> map = new HashMap<>();
-				map = userService.generateOTP(username);
-				email=map.get("email");
-				message = map.get("otp");
-				emailService.sendOtpMessage(email, APARTMENT_OTP_FOR_CHANGE_PASSWORD, message);
-				return ResponseEntity.ok(map);
+				try {
+					map = userService.generateOTP(username);
+					email=map.get("email");
+					otp = map.get("otp");
+					emailService.sendOtpMessage(email, APARTMENT_OTP_FOR_CHANGE_PASSWORD, otp);
+					ResponsMessage message= new ResponsMessage("OTP Sent Successfully");
+					return new ResponseEntity<>(message,HttpStatus.OK);
+				}catch (Exception e){
+					ResponsMessage message= new ResponsMessage("Failed to send OTP");
+					return new ResponseEntity<>(message,HttpStatus.BAD_REQUEST);
+				}
 		}
 
 		@GetMapping(path = "/validateOtp")
-		public Boolean validateOtp(@RequestParam() String username,@RequestParam() String otp){
-			 return userService.validateOtp(username,otp);
+		public ResponseEntity<?> validateOtp(@RequestParam() String username,@RequestParam() String otp){
+
+			boolean b=userService.validateOtp(username,otp);
+			if(b==true){
+				ResponsMessage responsMessage = new ResponsMessage("OTP Validated");
+				return new ResponseEntity<>(responsMessage,HttpStatus.OK);
+			}else{
+				ResponsMessage responsMessage = new ResponsMessage("OTP is Invalid");
+				return new ResponseEntity<>(responsMessage,HttpStatus.INTERNAL_SERVER_ERROR);
+			}
 		}
+
+	@GetMapping(path = "/changepassword")
+	public ResponseEntity<?> changepassword(@RequestParam() String username,@RequestParam String password){
+		Optional<UserLogin> userLogin= userRepository.findByUsername(username);
+		UserLogin login=userLogin.get();
+		login.setPassword(bCryptPasswordEncoder.encode(password));
+		userRepository.save(login);
+		ResponsMessage responsMessage = new ResponsMessage("Password changed Successfully");
+		return new ResponseEntity<>(responsMessage,HttpStatus.OK);
+	}
 }
