@@ -13,8 +13,9 @@ import com.example.Apartment.DTO.FlatsDTO;
 import com.example.Apartment.DTO.OwnerDetailsDTO;
 import com.example.Apartment.Entity.OwnerDetails;
 import com.example.common.ResponsMessage;
+import org.springframework.web.multipart.MultipartFile;
 
-	/**
+/**
 	 * @author ARUN VEMIREDDY
 	 *
 	 */
@@ -31,6 +32,10 @@ public interface OwnerService {
 	
 	public ResponsMessage updateOwnerDetails(OwnerDetailsDTO ownerDetailsDTO);
 
+	public String uploadProfilePic(MultipartFile file,String id);
+
 	public ByteArrayInputStream downloadOwnerFile();
+
+	public String getProfilePic(String id);
 
 }

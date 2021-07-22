@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.example.Apartment.Service.OwnerService;
 import com.example.common.ResponsMessage;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
 import java.util.List;
@@ -137,4 +138,22 @@ public class OwnerController {
 				.contentType(MediaType.parseMediaType("application/csv")).body(file);
 //		return  ResponseEntity.ok(ownerDetailsDao.findAll());
 	}
+
+	@PostMapping(path="/uploadProfilePic")
+	public ResponseEntity<?> uploadProfilePic(@RequestBody MultipartFile file,@RequestParam() String id) {
+		ResponseEntity<?> responseEntity;
+		HttpHeaders responseHeaders = new HttpHeaders();
+		ownerService.uploadProfilePic(file,id);
+		responseEntity= new ResponseEntity<Object>(ownerService.getProfilePic(id),responseHeaders,HttpStatus.OK);
+		return responseEntity;
+	}
+
+	@GetMapping(path="/getProfilePic")
+	public ResponseEntity<?> getProfilePic(@RequestParam() String id) {
+		ResponseEntity<?> responseEntity;
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseEntity= new ResponseEntity<Object>(ownerService.getProfilePic(id),responseHeaders,HttpStatus.OK);
+		return responseEntity;
+	}
+
 }   

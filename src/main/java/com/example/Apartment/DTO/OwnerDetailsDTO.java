@@ -1,5 +1,7 @@
 package com.example.Apartment.DTO;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class OwnerDetailsDTO {
 	
 	private int id;
@@ -9,6 +11,7 @@ public class OwnerDetailsDTO {
 	private int flatno;
 	
 	private Long contact;
+
 	public int getId() {
 		return id;
 	}

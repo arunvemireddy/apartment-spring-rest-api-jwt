@@ -1,8 +1,11 @@
 package com.example.Apartment.ServiceImpl;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
+import java.util.Optional;
 
 import javax.xml.bind.ValidationException;
 
@@ -20,8 +23,9 @@ import com.example.Apartment.Dao.OwnerDetailsDao;
 import com.example.Apartment.Entity.OwnerDetails;
 import com.example.Apartment.Service.OwnerService;
 import com.example.common.ResponsMessage;
+import org.springframework.web.multipart.MultipartFile;
 
-	/**
+/**
 	 * @author ARUN VEMIREDDY
 	 *
 	 */
@@ -94,4 +98,26 @@ public class OwnerServiceImpl implements OwnerService {
 		ByteArrayInputStream in = OwnerCSVDownload.tutorialsToCSV(ownerDetails);
 		return in;
 	}
+
+	@Override
+	public String uploadProfilePic(MultipartFile file,String id){
+	Optional<OwnerDetails> optionalOwnerDetails= ownerDetailsDao.findById(Integer.parseInt(id));
+	OwnerDetails ownerDetails = optionalOwnerDetails.get();
+		try {
+			ownerDetails.setImage(Base64.getEncoder().encodeToString(file.getBytes()));
+			ownerDetailsDao.save(ownerDetails);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "uploaded";
+	}
+
+	@Override
+	public String getProfilePic(String id){
+		Optional<OwnerDetails> optionalOwnerDetails= ownerDetailsDao.findById(Integer.parseInt(id));
+		OwnerDetails ownerDetails = optionalOwnerDetails.get();
+		return ownerDetails.getImage();
+	}
+
+
 }

@@ -17,6 +17,17 @@ public class OwnerDetails {
 	@Column(unique = true)
 	private int flatno;
 	private Long contact;
+	@Lob
+	@Column(columnDefinition = "MEDIUMBLOB")
+	private String image;
+
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
+	}
+
 	public int getId() {
 		return id;
 	}

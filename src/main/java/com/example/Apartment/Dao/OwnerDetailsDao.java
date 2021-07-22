@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 import com.example.Apartment.DTO.OwnerListProjections;
 import com.example.Apartment.DTO.OwnerNameDTO;
 import com.example.Apartment.DTO.OwnersProjections;
+import io.swagger.models.auth.In;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -26,7 +27,7 @@ import com.example.Apartment.Entity.OwnerDetails;
 	 *
 	 */
 @Repository
-public interface OwnerDetailsDao extends JpaRepository<OwnerDetails, Long> {
+public interface OwnerDetailsDao extends JpaRepository<OwnerDetails, Integer> {
 
 	@Query(value = "SELECT apartment_name,noof_flats FROM apartment", nativeQuery = true)
 	List<ApartmentDTO> fetchDetails();
