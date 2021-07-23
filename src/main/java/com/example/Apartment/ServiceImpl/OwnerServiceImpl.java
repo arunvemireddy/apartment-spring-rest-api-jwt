@@ -82,8 +82,8 @@ public class OwnerServiceImpl implements OwnerService {
 	
 	@Override
 	public ResponsMessage updateOwnerDetails(OwnerDetailsDTO ownerDetailsDTO) {
-		OwnerDetails ownerDetails = new OwnerDetails();
-		ownerDetails.setId(ownerDetailsDTO.getId());
+		Optional<OwnerDetails> optionalOwnerDetails= ownerDetailsDao.findById(ownerDetailsDTO.getId());
+		OwnerDetails ownerDetails=optionalOwnerDetails.get();
 		ownerDetails.setContact(ownerDetailsDTO.getContact());
 		ownerDetails.setFlatno(ownerDetailsDTO.getFlatno());
 		ownerDetails.setName(ownerDetailsDTO.getName());
