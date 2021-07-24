@@ -66,4 +66,6 @@ public interface OwnerDetailsDao extends JpaRepository<OwnerDetails, Integer> {
 
 	@Query(value = "select m.name from owner_details m where m.flatno = ?1",nativeQuery = true)
 	List<String> getOwnersListByFlat(int flatno);
+
+	OwnerDetails findByflatno(int flatno);
 }

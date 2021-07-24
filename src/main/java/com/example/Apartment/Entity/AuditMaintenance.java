@@ -1,8 +1,8 @@
 package com.example.Apartment.Entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Date;
+import java.time.LocalDate;
 
 /**
  * @author arun vemireddy
@@ -11,16 +11,26 @@ import java.sql.Date;
 public class AuditMaintenance {
 
     @Id
-    private int flatno;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    private int flatNo;
     private String ownerName;
-    private String date;
+    private LocalDate date;
 
-    public int getFlatno() {
-        return flatno;
+    public int getId() {
+        return id;
     }
 
-    public void setFlatno(int flatno) {
-        this.flatno = flatno;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getFlatNo() {
+        return flatNo;
+    }
+
+    public void setFlatNo(int flatNo) {
+        this.flatNo = flatNo;
     }
 
     public String getOwnerName() {
@@ -31,11 +41,11 @@ public class AuditMaintenance {
         this.ownerName = ownerName;
     }
 
-    public String getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 }
