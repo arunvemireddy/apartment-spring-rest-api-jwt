@@ -77,4 +77,11 @@ public class UserLogin {
 	public void setRoles(Set<String> roles) {
 		this.roles = roles;
 	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
 }
