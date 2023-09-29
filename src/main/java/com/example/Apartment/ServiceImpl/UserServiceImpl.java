@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
         Map<String,String> map = new HashMap<>();
         Optional<UserLogin> userLogin=userRepository.findByUsername(key);
         UserLogin userLogin1=userLogin.get();
-        email=userLogin1.getEmail();
+//        email=userLogin1.getEmail();
         Random random = new Random();
         otp = 100000 + random.nextInt(900000);
         map.put("otp",String.valueOf(otp));

@@ -58,7 +58,7 @@ public class JobCompletionNotificationListener extends JobExecutionListenerSuppo
            Set<String> set = new HashSet<>();
            set.add("Admin");
            userLogin.setRoles(set);
-           userLogin.setEmail("vemireddyarun0701@gmail.com");
+//           userLogin.setEmail("vemireddyarun0701@gmail.com");
            userRepository.save(userLogin);
 
            List<OwnerDetails> ownerDetailsList = ownerDetailsDao.findAll();
