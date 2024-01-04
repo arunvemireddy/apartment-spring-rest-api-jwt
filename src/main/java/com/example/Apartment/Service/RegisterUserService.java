@@ -9,7 +9,7 @@ import com.example.Apartment.Entity.UserLogin;
 	 *
 	 */
 @Service
-public interface ApartmentService {
+public interface RegisterUserService{
 
 	Integer saveUser(UserLogin user);
 	

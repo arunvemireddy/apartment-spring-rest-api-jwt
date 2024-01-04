@@ -17,7 +17,7 @@ import com.example.Apartment.Entity.UserLogin;
 @Repository
 public interface UserRepository extends JpaRepository<UserLogin, Integer> {
 
-	Optional<UserLogin> findByUsername(String userName);
+	Optional<UserLogin> findByUsername(String username);
 
 	@Query("select m from UserLogin m where username=:userName")
 	UserLogin finduserDetails(@Param("userName") String userName);
