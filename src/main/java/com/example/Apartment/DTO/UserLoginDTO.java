@@ -7,31 +7,31 @@ import java.util.Set;
  */
 public class UserLoginDTO {
 
-    private String eusername;
-    private String ename;
-    private Set<String> roles;
+	private String eusername;
+	private String ename;
+	private Set<String> roles;
 
-    public String getEusername() {
-        return eusername;
-    }
+	public String getEusername() {
+		return eusername;
+	}
 
-    public void setEusername(String eusername) {
-        this.eusername = eusername;
-    }
+	public void setEusername(String eusername) {
+		this.eusername = eusername;
+	}
 
-    public String getEname() {
-        return ename;
-    }
+	public String getEname() {
+		return ename;
+	}
 
-    public void setEname(String ename) {
-        this.ename = ename;
-    }
+	public void setEname(String ename) {
+		this.ename = ename;
+	}
 
-    public Set<String> getRoles() {
-        return roles;
-    }
+	public Set<String> getRoles() {
+		return roles;
+	}
 
-    public void setRoles(Set<String> roles) {
-        this.roles = roles;
-    }
+	public void setRoles(Set<String> roles) {
+		this.roles = roles;
+	}
 }

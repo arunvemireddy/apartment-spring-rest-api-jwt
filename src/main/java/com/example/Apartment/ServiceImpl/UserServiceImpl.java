@@ -21,60 +21,59 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private static final Integer EXPIRE_MINS = 5;
+	private static final Integer EXPIRE_MINS = 5;
 
-    @Autowired
-    private UserRepository userRepository;
+	@Autowired
+	private UserRepository userRepository;
 
-    private LoadingCache<String, Integer> otpCache;
+	private LoadingCache<String, Integer> otpCache;
 
-    public UserServiceImpl(){
-        super();
-        otpCache = CacheBuilder.newBuilder().
-                expireAfterWrite(EXPIRE_MINS, TimeUnit.MINUTES)
-                .build(new CacheLoader<String, Integer>() {
-                    public Integer load(String key) {
-                        return 0;
-                    }
-                });
-    }
+	public UserServiceImpl() {
+		super();
+		otpCache = CacheBuilder.newBuilder().expireAfterWrite(EXPIRE_MINS, TimeUnit.MINUTES)
+				.build(new CacheLoader<String, Integer>() {
+					public Integer load(String key) {
+						return 0;
+					}
+				});
+	}
 
-    @Override
-    public String updateUserDetails(String userName, UserLoginDTO userLoginDTO) {
-        Optional<UserLogin> userLogin=userRepository.findByUsername(userName);
-        UserLogin userLogin1=userLogin.get();
-        userLogin1.setName(userLoginDTO.getEname());
-        userLogin1.setRoles(userLoginDTO.getRoles());
-        userRepository.save(userLogin1);
-        return "updated";
-    }
+	@Override
+	public String updateUserDetails(String userName, UserLoginDTO userLoginDTO) {
+		Optional<UserLogin> userLogin = userRepository.findByUsername(userName);
+		UserLogin userLogin1 = userLogin.get();
+		userLogin1.setName(userLoginDTO.getEname());
+		userLogin1.setRoles(userLoginDTO.getRoles());
+		userRepository.save(userLogin1);
+		return "updated";
+	}
 
-    public Map<String,String> generateOTP(String key){
-        int otp=0;
-        String email=null;
-        Map<String,String> map = new HashMap<>();
-        Optional<UserLogin> userLogin=userRepository.findByUsername(key);
-        UserLogin userLogin1=userLogin.get();
+	public Map<String, String> generateOTP(String key) {
+		int otp = 0;
+		String email = null;
+		Map<String, String> map = new HashMap<>();
+		Optional<UserLogin> userLogin = userRepository.findByUsername(key);
+		UserLogin userLogin1 = userLogin.get();
 //        email=userLogin1.getEmail();
-        Random random = new Random();
-        otp = 100000 + random.nextInt(900000);
-        map.put("otp",String.valueOf(otp));
-        map.put("email",email);
-        otpCache.put(key,otp);
-        return map;
-    }
+		Random random = new Random();
+		otp = 100000 + random.nextInt(900000);
+		map.put("otp", String.valueOf(otp));
+		map.put("email", email);
+		otpCache.put(key, otp);
+		return map;
+	}
 
-    public Boolean validateOtp(String key,String otp1)  {
-        try{
-        int otp=otpCache.get(key);
-        int otp2=Integer.parseInt(otp1);
-        if(otp==otp2){
-            return true;
-        }else {
-           return false;
-        }
-        }catch (Exception exception){
-            return false;
-        }
-    }
+	public Boolean validateOtp(String key, String otp1) {
+		try {
+			int otp = otpCache.get(key);
+			int otp2 = Integer.parseInt(otp1);
+			if (otp == otp2) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (Exception exception) {
+			return false;
+		}
+	}
 }

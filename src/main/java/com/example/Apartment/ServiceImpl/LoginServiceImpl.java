@@ -19,7 +19,7 @@ import com.example.Apartment.Service.LoginService;
 public class LoginServiceImpl implements LoginService, UserDetailsService {
 
 	private UserRepository userRepository;
-	
+
 	@Autowired
 	public LoginServiceImpl(UserRepository userRepository) {
 		this.userRepository = userRepository;

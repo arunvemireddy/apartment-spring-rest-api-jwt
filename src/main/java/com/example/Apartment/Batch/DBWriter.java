@@ -14,11 +14,11 @@ import java.util.List;
 @Configuration
 public class DBWriter implements ItemWriter<OwnerDetails> {
 
-    @Autowired
-    private OwnerDetailsDao ownerDetailsDao;
+	@Autowired
+	private OwnerDetailsDao ownerDetailsDao;
 
-    @Override
-    public void write(List<? extends OwnerDetails> items) throws Exception {
-        ownerDetailsDao.saveAll(items);
-    }
+	@Override
+	public void write(List<? extends OwnerDetails> items) throws Exception {
+		ownerDetailsDao.saveAll(items);
+	}
 }

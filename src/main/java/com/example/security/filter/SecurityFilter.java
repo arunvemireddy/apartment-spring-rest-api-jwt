@@ -39,7 +39,7 @@ public class SecurityFilter extends OncePerRequestFilter implements Filter, WebM
 	private JwtUtil util;
 
 	private UserDetailsService userDetailsService;
-	
+
 	@Autowired
 	public SecurityFilter(JwtUtil util, UserDetailsService userDetailsService) {
 		super();
@@ -49,11 +49,9 @@ public class SecurityFilter extends OncePerRequestFilter implements Filter, WebM
 
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
-		registry.addMapping("/**")
-		.allowedOrigins("*")
-		.allowedMethods("GET", "POST", "PUT", "DELETE");
+		registry.addMapping("/**").allowedOrigins("*").allowedMethods("GET", "POST", "PUT", "DELETE");
 	}
-	
+
 	private void readCookies(Cookie[] cookies) {
 		if (cookies != null) {
 			for (Cookie cookie : cookies) {
@@ -61,7 +59,7 @@ public class SecurityFilter extends OncePerRequestFilter implements Filter, WebM
 				String value = cookie.getValue();
 				log.info("Cookie Name: " + name + ", Value: " + value);
 			}
-		 }
+		}
 	}
 
 	@Override

@@ -12,8 +12,8 @@ import java.util.List;
  * @author arun vemireddy
  */
 @Repository
-public interface MaintenanceRepo extends JpaRepository<AuditMaintenance,Integer> {
+public interface MaintenanceRepo extends JpaRepository<AuditMaintenance, Integer> {
 
-    @Query(value = "select date from AUDIT_MAINTENANCE where flat_no = ?1 and date between ?2 and ?3",nativeQuery = true)
-    List<?> findByMaintenance(int flatno,String startDate,String endDate);
+	@Query(value = "select date from AUDIT_MAINTENANCE where flat_no = ?1 and date between ?2 and ?3", nativeQuery = true)
+	List<?> findByMaintenance(int flatno, String startDate, String endDate);
 }

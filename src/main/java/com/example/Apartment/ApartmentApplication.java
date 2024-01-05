@@ -2,17 +2,15 @@ package com.example.Apartment;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * @author ARUN VEMIREDDY
  *
  */
 
-@SpringBootApplication(scanBasePackages={
-		"com.example"})
+@SpringBootApplication(scanBasePackages = { "com.example" })
 @EnableSwagger2
 public class ApartmentApplication {
 

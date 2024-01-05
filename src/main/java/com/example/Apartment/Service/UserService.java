@@ -11,7 +11,9 @@ import java.util.Map;
 @Service
 public interface UserService {
 
-    public String updateUserDetails(String userName, UserLoginDTO userLoginDTO);
-    public Map<String,String> generateOTP(String key);
-    public Boolean validateOtp(String key,String otp);
+	public String updateUserDetails(String userName, UserLoginDTO userLoginDTO);
+
+	public Map<String, String> generateOTP(String key);
+
+	public Boolean validateOtp(String key, String otp);
 }

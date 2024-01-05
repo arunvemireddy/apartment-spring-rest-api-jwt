@@ -5,7 +5,6 @@ package com.example.Apartment.DTO;
  */
 public interface OwnersProjections {
 
-
-    public int getFlatno();
+	public int getFlatno();
 
 }

@@ -18,7 +18,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 
-
 /**
  * @author arun vemireddy
  */
@@ -26,48 +25,38 @@ import org.springframework.core.io.ClassPathResource;
 @EnableBatchProcessing
 public class BatchConfig {
 
-    private final String[] FIELD_NAMES = new String[]{"id","name","contact","flatno"};
+	private final String[] FIELD_NAMES = new String[] { "id", "name", "contact", "flatno" };
 
-    @Autowired
-    public JobBuilderFactory jobBuilderFactory;
+	@Autowired
+	public JobBuilderFactory jobBuilderFactory;
 
-    @Autowired
-    public StepBuilderFactory stepBuilderFactory;
+	@Autowired
+	public StepBuilderFactory stepBuilderFactory;
 
-    @Bean
-    public FlatFileItemReader<OwnerDetailsInput> reader() {
-        return new FlatFileItemReaderBuilder<OwnerDetailsInput>()
-                .name("matchItemReader")
-                .resource(new ClassPathResource("data.csv"))
-                .delimited()
-                .names(FIELD_NAMES)
-                .fieldSetMapper(new BeanWrapperFieldSetMapper<OwnerDetailsInput>() {{
-                    setTargetType(OwnerDetailsInput.class);
-                }})
-                .build();
-    }
+	@Bean
+	public FlatFileItemReader<OwnerDetailsInput> reader() {
+		return new FlatFileItemReaderBuilder<OwnerDetailsInput>().name("matchItemReader")
+				.resource(new ClassPathResource("data.csv")).delimited().names(FIELD_NAMES)
+				.fieldSetMapper(new BeanWrapperFieldSetMapper<OwnerDetailsInput>() {
+					{
+						setTargetType(OwnerDetailsInput.class);
+					}
+				}).build();
+	}
 
-    public OwnerProcessor ownerProcessor(){
-        return new OwnerProcessor();
-    }
+	public OwnerProcessor ownerProcessor() {
+		return new OwnerProcessor();
+	}
 
-    @Bean
-    public Job importUserJob(JobCompletionNotificationListener listener,Step step1) {
-        return jobBuilderFactory.get("importUserJob")
-                .incrementer(new RunIdIncrementer())
-                .listener(listener)
-                .flow(step1)
-                .end()
-                .build();
-    }
+	@Bean
+	public Job importUserJob(JobCompletionNotificationListener listener, Step step1) {
+		return jobBuilderFactory.get("importUserJob").incrementer(new RunIdIncrementer()).listener(listener).flow(step1)
+				.end().build();
+	}
 
-    @Bean
-    public Step step1(ItemWriter<OwnerDetails> writer) {
-        return stepBuilderFactory.get("step1")
-                .<OwnerDetailsInput, OwnerDetails> chunk(10)
-                .reader(reader())
-                .processor(ownerProcessor())
-                .writer(writer)
-                .build();
-    }
+	@Bean
+	public Step step1(ItemWriter<OwnerDetails> writer) {
+		return stepBuilderFactory.get("step1").<OwnerDetailsInput, OwnerDetails>chunk(10).reader(reader())
+				.processor(ownerProcessor()).writer(writer).build();
+	}
 }

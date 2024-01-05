@@ -19,8 +19,8 @@ import com.example.Apartment.constants.UserConstants;
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(path = "/api")
 public class RegisterUserController {
-	
-	private static final Logger log= LogManager.getLogger(RegisterUserController.class);
+
+	private static final Logger log = LogManager.getLogger(RegisterUserController.class);
 
 	@Autowired
 	private RegisterUserService registerUserService;

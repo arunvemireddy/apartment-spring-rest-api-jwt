@@ -67,22 +67,20 @@ public class OwnerController {
 	}
 
 	@GetMapping(path = "/getOwnerDetails")
-	public ResponseEntity<?> getOwnerDetails(
-	        @RequestParam(required = false, defaultValue = "0") int pageNo,
-	        @RequestParam(required = false, defaultValue = "10") int pageSize,
-	        @RequestParam(required = false, defaultValue = "id") String colName) {
-	    try {
-	        Page<OwnerDetails> page = ownerService.getownerDetails(pageNo, pageSize, colName);
-	        return new ResponseEntity<>(page, HttpStatus.OK);
-	    } catch (SignatureException e) {
-	        log.error("Error parsing token claims: " + e.getMessage());
-	        return new ResponseEntity<>("Invalid token. Please log in again.", HttpStatus.UNAUTHORIZED);
-	    } catch (Exception e) {
-	        log.error("Error getting owner details: " + e.getMessage());
-	        return new ResponseEntity<>("Error getting owner details, login again", HttpStatus.INTERNAL_SERVER_ERROR);
-	    }
+	public ResponseEntity<?> getOwnerDetails(@RequestParam(required = false, defaultValue = "0") int pageNo,
+			@RequestParam(required = false, defaultValue = "10") int pageSize,
+			@RequestParam(required = false, defaultValue = "id") String colName) {
+		try {
+			Page<OwnerDetails> page = ownerService.getownerDetails(pageNo, pageSize, colName);
+			return new ResponseEntity<>(page, HttpStatus.OK);
+		} catch (SignatureException e) {
+			log.error("Error parsing token claims: " + e.getMessage());
+			return new ResponseEntity<>("Invalid token. Please log in again.", HttpStatus.UNAUTHORIZED);
+		} catch (Exception e) {
+			log.error("Error getting owner details: " + e.getMessage());
+			return new ResponseEntity<>("Error getting owner details, login again", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
-
 
 	@PostMapping("saveOwnerDetails")
 	public ResponseEntity<Object> saveOwnerDetails(@RequestBody OwnerDetailsDTO detailsDTO) {

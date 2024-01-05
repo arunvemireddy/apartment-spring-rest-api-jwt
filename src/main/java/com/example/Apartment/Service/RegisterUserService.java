@@ -4,14 +4,14 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 import com.example.Apartment.Entity.UserLogin;
 
-	/**
-	 * @author ARUN VEMIREDDY
-	 *
-	 */
+/**
+ * @author ARUN VEMIREDDY
+ *
+ */
 @Service
-public interface RegisterUserService{
+public interface RegisterUserService {
 
 	Integer saveUser(UserLogin user);
-	
+
 	Optional<UserLogin> findByUsername(String userName);
 }

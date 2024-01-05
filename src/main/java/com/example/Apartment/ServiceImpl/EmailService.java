@@ -14,21 +14,21 @@ import javax.mail.internet.MimeMessage;
 @Service
 public class EmailService {
 
-    @Autowired
-    private JavaMailSender javaMailSender;
+	@Autowired
+	private JavaMailSender javaMailSender;
 
-    public void sendOtpMessage(String to, String subject, String message) throws MessagingException {
+	public void sendOtpMessage(String to, String subject, String message) throws MessagingException {
 
-        MimeMessage msg = javaMailSender.createMimeMessage();
+		MimeMessage msg = javaMailSender.createMimeMessage();
 
-        MimeMessageHelper helper = new MimeMessageHelper(msg, true);
+		MimeMessageHelper helper = new MimeMessageHelper(msg, true);
 
-        helper.setTo(to);
+		helper.setTo(to);
 
-        helper.setSubject(subject);
+		helper.setSubject(subject);
 
-        helper.setText(message, true);
+		helper.setText(message, true);
 
-        javaMailSender.send(msg);
-    }
+		javaMailSender.send(msg);
+	}
 }

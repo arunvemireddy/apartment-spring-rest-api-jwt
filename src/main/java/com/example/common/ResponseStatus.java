@@ -1,14 +1,13 @@
 package com.example.common;
 
-
 /**
  * @author ARUN VEMIREDDY
  *
  */
 public enum ResponseStatus {
-	
-	SUCCESS("SUCCESS"),ERROR("ERROR");
-	
+
+	SUCCESS("SUCCESS"), ERROR("ERROR");
+
 	private String status;
 
 	public String getStatus() {

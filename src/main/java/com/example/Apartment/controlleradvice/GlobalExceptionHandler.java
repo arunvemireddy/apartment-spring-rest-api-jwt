@@ -53,7 +53,7 @@ public class GlobalExceptionHandler {
 		ResponseEntity<?> response = new ResponseEntity<>(res, HttpStatus.BAD_GATEWAY);
 		return response;
 	}
-	
+
 	@ExceptionHandler(SignatureException.class)
 	@ResponseStatus(HttpStatus.BAD_GATEWAY)
 	public ResponseEntity<?> handleNoSuchElementFoundException(SignatureException exception) {

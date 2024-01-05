@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public interface MaintanceService {
 
-    public String payMaintenance(int flatNo);
+	public String payMaintenance(int flatNo);
 
-    public List<?> getOwnerMaintenanceDetails(String flatNo, String year);
+	public List<?> getOwnerMaintenanceDetails(String flatNo, String year);
 }

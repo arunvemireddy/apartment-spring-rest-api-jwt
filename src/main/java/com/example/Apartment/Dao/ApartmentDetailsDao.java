@@ -8,11 +8,10 @@ import org.springframework.stereotype.Repository;
 
 import com.example.Apartment.Entity.ApartmentDetails;
 
-
-	/**
-	 * @author ARUN VEMIREDDY
-	 *
-	 */
+/**
+ * @author ARUN VEMIREDDY
+ *
+ */
 @Repository
 public interface ApartmentDetailsDao extends JpaRepository<ApartmentDetails, Integer> {
 

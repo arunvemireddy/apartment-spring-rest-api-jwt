@@ -10,42 +10,42 @@ import java.time.LocalDate;
 @Entity
 public class AuditMaintenance {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private int flatNo;
-    private String ownerName;
-    private LocalDate date;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	private int flatNo;
+	private String ownerName;
+	private LocalDate date;
 
-    public int getId() {
-        return id;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public int getFlatNo() {
-        return flatNo;
-    }
+	public int getFlatNo() {
+		return flatNo;
+	}
 
-    public void setFlatNo(int flatNo) {
-        this.flatNo = flatNo;
-    }
+	public void setFlatNo(int flatNo) {
+		this.flatNo = flatNo;
+	}
 
-    public String getOwnerName() {
-        return ownerName;
-    }
+	public String getOwnerName() {
+		return ownerName;
+	}
 
-    public void setOwnerName(String ownerName) {
-        this.ownerName = ownerName;
-    }
+	public void setOwnerName(String ownerName) {
+		this.ownerName = ownerName;
+	}
 
-    public LocalDate getDate() {
-        return date;
-    }
+	public LocalDate getDate() {
+		return date;
+	}
 
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
+	public void setDate(LocalDate date) {
+		this.date = date;
+	}
 }

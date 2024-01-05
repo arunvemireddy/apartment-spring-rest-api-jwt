@@ -54,8 +54,7 @@ public class LoginController {
 	private UserRepository userRepository;
 
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
-	
-	
+
 	@Autowired
 	public LoginController(JwtUtil util, AuthenticationManager authenticationManager, EmailService emailService,
 			UserService userService, UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
@@ -66,7 +65,6 @@ public class LoginController {
 		this.userRepository = userRepository;
 		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
 	}
-	
 
 	// validate user and generate token
 	@PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -75,14 +73,14 @@ public class LoginController {
 				new UsernamePasswordAuthenticationToken(userRequest.getUsername(), userRequest.getPassword()));
 		String token = util.generatetoken(userRequest.getUsername());
 		String username = userRequest.getUsername();
-		
+
 //		Cookie myCookie = new Cookie("myCookieName", "cookieValue");
 //		myCookie.setMaxAge(3600);  // Cookie will expire after 1 hour (in seconds)
 //		myCookie.setPath("/");
 //		response.addCookie(myCookie);
 //		response.addHeader("token", token);
 //		response.setContentType("")
-		
+
 		return ResponseEntity.ok(new UserResponse(token, username));
 	}
 

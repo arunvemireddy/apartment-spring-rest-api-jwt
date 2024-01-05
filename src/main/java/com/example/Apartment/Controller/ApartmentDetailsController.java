@@ -11,26 +11,25 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.Apartment.Service.ApartmentDetailsService;
 
-
-	/**
-	 * @author ARUN VEMIREDDY
-	 *
-	 */
+/**
+ * @author ARUN VEMIREDDY
+ *
+ */
 @RestController
-@CrossOrigin(origins ="http://localhost:4200")
-@RequestMapping(path="/api")
+@CrossOrigin(origins = "http://localhost:4200")
+@RequestMapping(path = "/api")
 public class ApartmentDetailsController {
-	
+
 	@Autowired
 	private ApartmentDetailsService apartmentDetailsService;
-	
-	        //fetch Apartment Details
-			@GetMapping(path="/getApartmentDetails")
-			public ResponseEntity<?> getApartmentDetails(){
-				ResponseEntity<?> response= null;
-				 HttpHeaders responseHeaders = new HttpHeaders();
-				 response = new ResponseEntity<>(apartmentDetailsService.getApartmentDetails(),responseHeaders,HttpStatus.OK);
-				 return response;
-			}
+
+	// fetch Apartment Details
+	@GetMapping(path = "/getApartmentDetails")
+	public ResponseEntity<?> getApartmentDetails() {
+		ResponseEntity<?> response = null;
+		HttpHeaders responseHeaders = new HttpHeaders();
+		response = new ResponseEntity<>(apartmentDetailsService.getApartmentDetails(), responseHeaders, HttpStatus.OK);
+		return response;
+	}
 
 }
