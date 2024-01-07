@@ -1,20 +1,18 @@
 package com.example.Apartment.ServiceImpl;
 
-import com.example.Apartment.DTO.AuditMaintenanceDTO;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.example.Apartment.Dao.MaintenanceRepo;
 import com.example.Apartment.Dao.OwnerDetailsDao;
 import com.example.Apartment.Entity.AuditMaintenance;
 import com.example.Apartment.Entity.OwnerDetails;
 import com.example.Apartment.Service.MaintanceService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
 
 /**
  * @author arun vemireddy

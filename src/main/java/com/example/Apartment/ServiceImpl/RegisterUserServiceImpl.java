@@ -21,18 +21,21 @@ public class RegisterUserServiceImpl implements RegisterUserService {
 
 	public final static Logger log = LogManager.getLogger(RegisterUserServiceImpl.class);
 
-	@Autowired
 	private UserRepository userRepository;
 
-	@Autowired
 	private BCryptPasswordEncoder pwdencoder;
+
+	@Autowired
+	public RegisterUserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder pwdencoder) {
+		this.userRepository = userRepository;
+		this.pwdencoder = pwdencoder;
+	}
 
 	@Override
 	public Integer saveUser(UserLogin user) {
-		String un = user.getUsername();
-		Optional<UserLogin> username = findByUsername(un);
-
-		if (username.isEmpty()) {
+		String username = user.getUsername();
+		Optional<UserLogin> optionalUser = findByUsername(username);
+		if (optionalUser.isEmpty()) {
 			user.setPassword(pwdencoder.encode(user.getPassword()));
 			return userRepository.save(user).getId();
 		}

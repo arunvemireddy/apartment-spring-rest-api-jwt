@@ -1,11 +1,13 @@
 package com.example.Apartment.Controller;
 
-import com.example.Apartment.DTO.AuditMaintenanceDTO;
-import com.example.Apartment.Entity.AuditMaintenance;
-import com.example.Apartment.Service.MaintanceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.Apartment.Service.MaintanceService;
 
 /**
  * @author arun vemireddy
@@ -14,8 +16,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(path = "/api")
 public class MaintenanceController {
 
-	@Autowired
 	private MaintanceService maintanceService;
+
+	@Autowired
+	public MaintenanceController(MaintanceService maintanceService) {
+		this.maintanceService = maintanceService;
+	}
 
 	@RequestMapping(path = "/payMaintenance", method = RequestMethod.GET)
 	public ResponseEntity<?> payMaintenance(@RequestParam String flatNo) {

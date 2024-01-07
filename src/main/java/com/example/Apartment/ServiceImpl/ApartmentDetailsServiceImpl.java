@@ -1,7 +1,7 @@
 package com.example.Apartment.ServiceImpl;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,8 +22,8 @@ public class ApartmentDetailsServiceImpl implements ApartmentDetailsService {
 
 	@Override
 	public List<ApartmentDetails> getApartmentDetails() {
-		List<ApartmentDetails> apartmentDetails = new ArrayList<ApartmentDetails>();
-		apartmentDetails.addAll(apartmentDetailsDao.getApartmentDetails());
+		Optional<List<ApartmentDetails>> optionalApartment = apartmentDetailsDao.getApartmentDetails();
+		List<ApartmentDetails> apartmentDetails = optionalApartment.get();
 		return apartmentDetails;
 	}
 }

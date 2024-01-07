@@ -1,7 +1,8 @@
 package com.example.Apartment.Batch;
 
-import com.example.Apartment.Entity.OwnerDetails;
 import org.springframework.batch.item.ItemProcessor;
+
+import com.example.Apartment.Entity.OwnerDetails;
 
 /**
  * @author arun vemireddy

@@ -4,19 +4,15 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
-import com.example.Apartment.DTO.OwnerListProjections;
-import com.example.Apartment.DTO.OwnerNameDTO;
-import com.example.Apartment.DTO.OwnersProjections;
-import io.swagger.models.auth.In;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.example.Apartment.DTO.ApartmentDTO;
+import com.example.Apartment.DTO.OwnerNameDTO;
 import com.example.Apartment.Entity.Apartment;
 import com.example.Apartment.Entity.OwnerDetails;
 

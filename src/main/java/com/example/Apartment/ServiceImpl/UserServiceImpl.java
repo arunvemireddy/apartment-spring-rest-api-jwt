@@ -1,5 +1,14 @@
 package com.example.Apartment.ServiceImpl;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.example.Apartment.DTO.UserLoginDTO;
 import com.example.Apartment.Dao.UserRepository;
 import com.example.Apartment.Entity.UserLogin;
@@ -7,13 +16,6 @@ import com.example.Apartment.Service.UserService;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
-import com.google.common.collect.BiMap;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.*;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author arun vemireddy
@@ -29,6 +31,7 @@ public class UserServiceImpl implements UserService {
 	private LoadingCache<String, Integer> otpCache;
 
 	public UserServiceImpl() {
+
 		super();
 		otpCache = CacheBuilder.newBuilder().expireAfterWrite(EXPIRE_MINS, TimeUnit.MINUTES)
 				.build(new CacheLoader<String, Integer>() {
@@ -40,11 +43,13 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public String updateUserDetails(String userName, UserLoginDTO userLoginDTO) {
-		Optional<UserLogin> userLogin = userRepository.findByUsername(userName);
-		UserLogin userLogin1 = userLogin.get();
+		Optional<UserLogin> optionalUser = userRepository.findByUsername(userName);
+		UserLogin userLogin1 = optionalUser.get();
+
 		userLogin1.setName(userLoginDTO.getEname());
 		userLogin1.setRoles(userLoginDTO.getRoles());
 		userRepository.save(userLogin1);
+
 		return "updated";
 	}
 

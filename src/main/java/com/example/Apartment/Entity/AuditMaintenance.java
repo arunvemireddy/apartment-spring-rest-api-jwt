@@ -1,8 +1,11 @@
 package com.example.Apartment.Entity;
 
-import javax.persistence.*;
-import java.sql.Date;
 import java.time.LocalDate;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /**
  * @author arun vemireddy

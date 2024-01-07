@@ -2,28 +2,27 @@ package com.example.Apartment.ServiceImpl;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
 import javax.xml.bind.ValidationException;
 
-import com.example.Apartment.Helper.OwnerCSVDownload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.Apartment.DTO.FlatsDTO;
 import com.example.Apartment.DTO.OwnerDetailsDTO;
 import com.example.Apartment.Dao.OwnerDetailsDao;
 import com.example.Apartment.Entity.OwnerDetails;
+import com.example.Apartment.Helper.OwnerCSVDownload;
 import com.example.Apartment.Service.OwnerService;
 import com.example.common.ResponsMessage;
-import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author ARUN VEMIREDDY

@@ -5,7 +5,6 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,16 +15,18 @@ import com.example.Apartment.Service.RegisterUserService;
 import com.example.Apartment.constants.UserConstants;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(path = "/api")
 public class RegisterUserController {
 
 	private static final Logger log = LogManager.getLogger(RegisterUserController.class);
 
-	@Autowired
 	private RegisterUserService registerUserService;
 
-	// save user in database - registration
+	@Autowired
+	public RegisterUserController(RegisterUserService registerUserService) {
+		this.registerUserService = registerUserService;
+	}
+
 	@PostMapping(value = "/saveUser", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> saveUser(@RequestBody UserLogin userLogin) {
 		int id = registerUserService.saveUser(userLogin);

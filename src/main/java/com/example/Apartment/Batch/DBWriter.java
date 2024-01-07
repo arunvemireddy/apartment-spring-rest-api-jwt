@@ -1,12 +1,13 @@
 package com.example.Apartment.Batch;
 
-import com.example.Apartment.Dao.OwnerDetailsDao;
-import com.example.Apartment.Entity.OwnerDetails;
+import java.util.List;
+
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.List;
+import com.example.Apartment.Dao.OwnerDetailsDao;
+import com.example.Apartment.Entity.OwnerDetails;
 
 /**
  * @author arun vemireddy

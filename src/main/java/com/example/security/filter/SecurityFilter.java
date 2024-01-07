@@ -1,7 +1,6 @@
 package com.example.security.filter;
 
 import java.io.IOException;
-import java.util.Iterator;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
