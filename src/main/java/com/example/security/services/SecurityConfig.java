@@ -64,7 +64,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements Filt
 	// Authorization-Http
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable().authorizeRequests().antMatchers("/api/saveUser", "/api/login",
+		http.csrf().disable().authorizeRequests().antMatchers("/api/saveUser", "/api/login", "/actuator/**",
 
 				"/api/generateOtp", "/api/changepassword", "/api//validateOtp",
 
