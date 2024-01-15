@@ -1,4 +1,4 @@
-package com.example.Apartment.Controller;
+package com.example.Apartment.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

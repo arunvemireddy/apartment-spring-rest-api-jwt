@@ -31,7 +31,7 @@ import io.jsonwebtoken.SignatureException;
  *
  */
 @Component
-public class SecurityFilter extends OncePerRequestFilter implements Filter, WebMvcConfigurer {
+public class SecurityFilter extends OncePerRequestFilter implements WebMvcConfigurer {
 
 	public final static Logger log = LogManager.getLogger(SecurityFilter.class);
 
