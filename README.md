@@ -1,4 +1,4 @@
 ### Spring Boot
 ### Spring Batch
-### Spring Security
+### Spring Security JWT
 
