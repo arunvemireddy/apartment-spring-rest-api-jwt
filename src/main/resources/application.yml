@@ -1,0 +1,37 @@
+server:
+  port: "8082"
+#Jwt Secret
+app:
+  secret: "arun"
+  name: "arun"
+  username: "arun"
+  password: "arun"
+  email: "arun@gmail.com"
+  role: "Admin"
+
+spring:
+  batch:
+    initialize-schema: "ALWAYS"
+  profiles:
+    active: "h2"
+  mail:
+    host: "smtp.gmail.com"
+    port: 587
+    username: "your mail"
+    password: "password"
+    properties:
+      mail:
+        smtp:
+          auth: "true"
+        starttls:
+          enable: "true"
+
+management:
+  endpoints:
+    web:
+      base-path: "/actuator"
+      exposure:
+        include: "*"
+    health:
+      show-details: "always"
+
